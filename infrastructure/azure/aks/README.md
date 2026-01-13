@@ -67,13 +67,13 @@ The module creates two node pools:
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | ~> 1.6 |
-| <a name="requirement_azurerm"></a> [azurerm](#requirement\_azurerm) | =4.41.0 |
+| <a name="requirement_azurerm"></a> [azurerm](#requirement\_azurerm) | ~> 4.52 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_azurerm"></a> [azurerm](#provider\_azurerm) | =4.41.0 |
+| <a name="provider_azurerm"></a> [azurerm](#provider\_azurerm) | ~> 4.52 |
 
 ## Modules
 
@@ -111,11 +111,13 @@ The module creates two node pools:
 
 | Name | Description |
 |------|-------------|
-| <a name="output_admin_client_certificate"></a> [admin\_client\_certificate](#output\_admin\_client\_certificate) | n/a |
-| <a name="output_admin_client_key"></a> [admin\_client\_key](#output\_admin\_client\_key) | n/a |
-| <a name="output_admin_cluster_ca_certificate"></a> [admin\_cluster\_ca\_certificate](#output\_admin\_cluster\_ca\_certificate) | n/a |
-| <a name="output_client_certificate"></a> [client\_certificate](#output\_client\_certificate) | n/a |
-| <a name="output_client_key"></a> [client\_key](#output\_client\_key) | n/a |
-| <a name="output_cluster_ca_certificate"></a> [cluster\_ca\_certificate](#output\_cluster\_ca\_certificate) | n/a |
-| <a name="output_host"></a> [host](#output\_host) | n/a |
+| <a name="output_admin_client_certificate"></a> [admin\_client\_certificate](#output\_admin\_client\_certificate) | The admin client certificate for authentication |
+| <a name="output_admin_client_key"></a> [admin\_client\_key](#output\_admin\_client\_key) | The admin client key for authentication |
+| <a name="output_admin_cluster_ca_certificate"></a> [admin\_cluster\_ca\_certificate](#output\_admin\_cluster\_ca\_certificate) | The admin cluster CA certificate in base64 |
+| <a name="output_client_certificate"></a> [client\_certificate](#output\_client\_certificate) | The client certificate for authentication |
+| <a name="output_client_key"></a> [client\_key](#output\_client\_key) | The client key for authentication |
+| <a name="output_cluster_ca_certificate"></a> [cluster\_ca\_certificate](#output\_cluster\_ca\_certificate) | The cluster CA certificate in base64 |
+| <a name="output_cluster_name"></a> [cluster\_name](#output\_cluster\_name) | The name of the AKS cluster |
+| <a name="output_host"></a> [host](#output\_host) | The API server endpoint |
+| <a name="output_oidc_issuer_url"></a> [oidc\_issuer\_url](#output\_oidc\_issuer\_url) | The URL of the cluster's OIDC issuer |
 <!-- END_TF_DOCS -->

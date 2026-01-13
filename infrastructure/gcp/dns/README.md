@@ -42,16 +42,18 @@ module "dns" {
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_domain_name"></a> [domain\_name](#input\_domain\_name) | The domain name (without trailing dot) | `string` | n/a | yes |
-| <a name="input_private_zone_networks"></a> [private\_zone\_networks](#input\_private\_zone\_networks) | VPC network self-links for private zones | `list(string)` | `[]` | no |
+| <a name="input_dns_zone_name"></a> [dns\_zone\_name](#input\_dns\_zone\_name) | The name of the DNS zone resource (defaults to domain name with dashes) | `string` | `null` | no |
+| <a name="input_domain_name"></a> [domain\_name](#input\_domain\_name) | The domain name to use for the DNS zone (e.g., example.com) | `string` | n/a | yes |
 | <a name="input_project_id"></a> [project\_id](#input\_project\_id) | The GCP project ID | `string` | n/a | yes |
+| <a name="input_tags"></a> [tags](#input\_tags) | A mapping of labels to assign to the DNS zone | `map(string)` | `{}` | no |
 | <a name="input_visibility"></a> [visibility](#input\_visibility) | Zone visibility: public or private | `string` | `"public"` | no |
-| <a name="input_zone_name"></a> [zone\_name](#input\_zone\_name) | The name of the DNS zone resource | `string` | n/a | yes |
+| <a name="input_vnet_ids"></a> [vnet\_ids](#input\_vnet\_ids) | VNet self-links for private DNS zone association | `list(string)` | `[]` | no |
 
 ## Outputs
 
 | Name | Description |
 |------|-------------|
-| <a name="output_name_servers"></a> [name\_servers](#output\_name\_servers) | n/a |
-| <a name="output_zone_name"></a> [zone\_name](#output\_zone\_name) | n/a |
+| <a name="output_dns_zone_id"></a> [dns\_zone\_id](#output\_dns\_zone\_id) | The ID of the created DNS zone |
+| <a name="output_dns_zone_name"></a> [dns\_zone\_name](#output\_dns\_zone\_name) | The name of the created DNS zone |
+| <a name="output_name_servers"></a> [name\_servers](#output\_name\_servers) | The list of name servers for the DNS zone |
 <!-- END_TF_DOCS -->

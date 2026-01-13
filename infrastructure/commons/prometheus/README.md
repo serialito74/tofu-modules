@@ -39,6 +39,6 @@ This module only installs Prometheus; you must configure the metrics provider in
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_nullplatform_port"></a> [nullplatform\_port](#input\_nullplatform\_port) | Port number for nullplatform service communication | `number` | `2021` | no |
-| <a name="input_prometheus_namespace"></a> [prometheus\_namespace](#input\_prometheus\_namespace) | Kubernetes namespace where Prometheus will be deployed | `string` | `"prometheus"` | no |
+| <a name="input_namespace"></a> [namespace](#input\_namespace) | The Kubernetes namespace where Prometheus will be deployed | `string` | `"prometheus"` | no |
+| <a name="input_nullplatform_port"></a> [nullplatform\_port](#input\_nullplatform\_port) | The port number for nullplatform service communication | `number` | `2021` | no |
 <!-- END_TF_DOCS -->

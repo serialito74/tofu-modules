@@ -49,8 +49,9 @@ module "alb_controller" {
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_aws_iam_openid_connect_provider"></a> [aws\_iam\_openid\_connect\_provider](#input\_aws\_iam\_openid\_connect\_provider) | AWS IAM OpenID Connect Provider for EKS cluster authentication | `string` | n/a | yes |
-| <a name="input_aws_load_balancer_controller_version"></a> [aws\_load\_balancer\_controller\_version](#input\_aws\_load\_balancer\_controller\_version) | Version of the AWS Load Balancer Controller Helm chart | `string` | `"1.13.4"` | no |
-| <a name="input_cluster_name"></a> [cluster\_name](#input\_cluster\_name) | Name of the EKS cluster | `string` | n/a | yes |
-| <a name="input_vpc_id"></a> [vpc\_id](#input\_vpc\_id) | VPC ID where load balancers controller will be deployed | `string` | n/a | yes |
+| <a name="input_chart_aws_load_balancer_controller_version"></a> [chart\_aws\_load\_balancer\_controller\_version](#input\_chart\_aws\_load\_balancer\_controller\_version) | The version of the AWS Load Balancer Controller Helm chart | `string` | `"1.13.4"` | no |
+| <a name="input_cluster_name"></a> [cluster\_name](#input\_cluster\_name) | The name of the EKS cluster | `string` | n/a | yes |
+| <a name="input_oidc_provider_arn"></a> [oidc\_provider\_arn](#input\_oidc\_provider\_arn) | The ARN of the OIDC provider for EKS cluster authentication | `string` | n/a | yes |
+| <a name="input_tags"></a> [tags](#input\_tags) | A mapping of tags to assign to the resources | `map(string)` | `{}` | no |
+| <a name="input_vpc_id"></a> [vpc\_id](#input\_vpc\_id) | The ID of the VPC/VNet where load balancers will be deployed | `string` | n/a | yes |
 <!-- END_TF_DOCS -->

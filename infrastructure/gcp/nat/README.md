@@ -46,16 +46,17 @@ module "cloud_nat" {
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
+| <a name="input_location"></a> [location](#input\_location) | The GCP region where Cloud NAT will be created (e.g., us-central1, europe-west1) | `string` | n/a | yes |
 | <a name="input_nat_name"></a> [nat\_name](#input\_nat\_name) | The name of the Cloud NAT | `string` | n/a | yes |
-| <a name="input_network_id"></a> [network\_id](#input\_network\_id) | The self-link of the VPC network | `string` | n/a | yes |
 | <a name="input_project_id"></a> [project\_id](#input\_project\_id) | The GCP project ID | `string` | n/a | yes |
-| <a name="input_region"></a> [region](#input\_region) | The region for Cloud NAT | `string` | n/a | yes |
 | <a name="input_router_name"></a> [router\_name](#input\_router\_name) | The name of the Cloud Router | `string` | n/a | yes |
+| <a name="input_tags"></a> [tags](#input\_tags) | A mapping of labels to assign to the NAT resources | `map(string)` | `{}` | no |
+| <a name="input_vnet_id"></a> [vnet\_id](#input\_vnet\_id) | The self-link of the virtual network | `string` | n/a | yes |
 
 ## Outputs
 
 | Name | Description |
 |------|-------------|
-| <a name="output_nat_name"></a> [nat\_name](#output\_nat\_name) | n/a |
-| <a name="output_router_name"></a> [router\_name](#output\_router\_name) | n/a |
+| <a name="output_nat_name"></a> [nat\_name](#output\_nat\_name) | The name of the Cloud NAT |
+| <a name="output_router_name"></a> [router\_name](#output\_router\_name) | The name of the Cloud Router |
 <!-- END_TF_DOCS -->

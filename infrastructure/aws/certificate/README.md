@@ -38,9 +38,10 @@ module "acm" {
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
+| <a name="input_dns_zone_id"></a> [dns\_zone\_id](#input\_dns\_zone\_id) | The ID of the DNS zone where certificate will be validated | `string` | n/a | yes |
 | <a name="input_domain_name"></a> [domain\_name](#input\_domain\_name) | The domain name for which to request the SSL certificate | `string` | n/a | yes |
-| <a name="input_subject_alternative_names"></a> [subject\_alternative\_names](#input\_subject\_alternative\_names) | Alternative DNS to add | `list(string)` | `[]` | no |
-| <a name="input_zone_id"></a> [zone\_id](#input\_zone\_id) | Route53 Zone ID where certificate will be validated | `string` | n/a | yes |
+| <a name="input_subject_alternative_names"></a> [subject\_alternative\_names](#input\_subject\_alternative\_names) | Alternative DNS names to add to the certificate | `list(string)` | `[]` | no |
+| <a name="input_tags"></a> [tags](#input\_tags) | A mapping of tags to assign to the certificate | `map(string)` | `{}` | no |
 
 ## Outputs
 

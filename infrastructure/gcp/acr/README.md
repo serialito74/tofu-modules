@@ -43,16 +43,17 @@ module "artifact_registry" {
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_format"></a> [format](#input\_format) | The format (DOCKER, NPM, PYTHON, etc) | `string` | `"DOCKER"` | no |
-| <a name="input_location"></a> [location](#input\_location) | The location for the repository | `string` | n/a | yes |
+| <a name="input_containerregistry_name"></a> [containerregistry\_name](#input\_containerregistry\_name) | The name of the container registry (repository ID) | `string` | n/a | yes |
+| <a name="input_format"></a> [format](#input\_format) | The format of the repository (DOCKER, NPM, PYTHON, etc) | `string` | `"DOCKER"` | no |
+| <a name="input_location"></a> [location](#input\_location) | The GCP region where the container registry will be created (e.g., us-central1, europe-west1) | `string` | n/a | yes |
 | <a name="input_project_id"></a> [project\_id](#input\_project\_id) | The GCP project ID | `string` | n/a | yes |
-| <a name="input_repository_id"></a> [repository\_id](#input\_repository\_id) | The repository ID (name) | `string` | n/a | yes |
+| <a name="input_tags"></a> [tags](#input\_tags) | A mapping of labels to assign to the container registry | `map(string)` | `{}` | no |
 
 ## Outputs
 
 | Name | Description |
 |------|-------------|
-| <a name="output_repository_id"></a> [repository\_id](#output\_repository\_id) | n/a |
-| <a name="output_repository_url"></a> [repository\_url](#output\_repository\_url) | n/a |
-| <a name="output_service_account_key_json"></a> [service\_account\_key\_json](#output\_service\_account\_key\_json) | Service Account key |
+| <a name="output_acr_id"></a> [acr\_id](#output\_acr\_id) | The ID of the container registry |
+| <a name="output_acr_login_server"></a> [acr\_login\_server](#output\_acr\_login\_server) | The URL of the container registry |
+| <a name="output_service_account_key_json"></a> [service\_account\_key\_json](#output\_service\_account\_key\_json) | The Service Account key for container registry access |
 <!-- END_TF_DOCS -->

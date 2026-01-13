@@ -67,17 +67,18 @@ module "vpc" {
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_network_name"></a> [network\_name](#input\_network\_name) | The name of the VPC network | `string` | n/a | yes |
 | <a name="input_project_id"></a> [project\_id](#input\_project\_id) | The GCP project ID | `string` | n/a | yes |
-| <a name="input_secondary_ranges"></a> [secondary\_ranges](#input\_secondary\_ranges) | Secondary ranges for GKE pods and services | `map(list(object({ range_name = string, ip_cidr_range = string })))` | `{}` | no |
-| <a name="input_subnets"></a> [subnets](#input\_subnets) | List of subnets to create | <pre>list(object({<br/>    subnet_name   = string<br/>    subnet_ip     = string<br/>    subnet_region = string<br/>  }))</pre> | n/a | yes |
+| <a name="input_secondary_ranges"></a> [secondary\_ranges](#input\_secondary\_ranges) | Secondary IP ranges for GKE pods and services | `map(list(object({ range_name = string, ip_cidr_range = string })))` | `{}` | no |
+| <a name="input_subnets_definition"></a> [subnets\_definition](#input\_subnets\_definition) | List of subnets to create within the virtual network | <pre>list(object({<br/>    name           = string<br/>    address_prefix = string<br/>    location       = string<br/>  }))</pre> | n/a | yes |
+| <a name="input_tags"></a> [tags](#input\_tags) | A mapping of labels to assign to the virtual network resources | `map(string)` | `{}` | no |
+| <a name="input_vnet_name"></a> [vnet\_name](#input\_vnet\_name) | The name of the virtual network | `string` | n/a | yes |
 
 ## Outputs
 
 | Name | Description |
 |------|-------------|
-| <a name="output_network_name"></a> [network\_name](#output\_network\_name) | n/a |
-| <a name="output_network_self_link"></a> [network\_self\_link](#output\_network\_self\_link) | n/a |
-| <a name="output_subnets_names"></a> [subnets\_names](#output\_subnets\_names) | n/a |
-| <a name="output_subnets_self_links"></a> [subnets\_self\_links](#output\_subnets\_self\_links) | n/a |
+| <a name="output_subnet_ids"></a> [subnet\_ids](#output\_subnet\_ids) | The self-links of the subnets created in the virtual network |
+| <a name="output_subnet_names"></a> [subnet\_names](#output\_subnet\_names) | The names of the subnets created in the virtual network |
+| <a name="output_vnet_id"></a> [vnet\_id](#output\_vnet\_id) | The self-link of the virtual network |
+| <a name="output_vnet_name"></a> [vnet\_name](#output\_vnet\_name) | The name of the virtual network |
 <!-- END_TF_DOCS -->
