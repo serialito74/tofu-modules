@@ -1,11 +1,10 @@
-<h2 align="center">
+<p align="center">
   <a href="https://nullplatform.com" target="_blank">
     <img height="100" alt="nullplatform" src="https://nullplatform.com/favicon/android-chrome-192x192.png" />
   </a>
-  <br><br>
-  # Nullplatform Tofu modules
-  <br>
-</h2>
+</p>
+
+<h1 align="center">Nullplatform Tofu Modules</h1>
 
 This repository contains **shared Tofu modules** used by nullplatform to standardize and reuse infrastructure across
 all projects.
@@ -16,31 +15,39 @@ all projects.
 .
 ├── infrastructure/                # All reusable Tofu modules
 │   ├── aws/
-│   │   ├── acm/
 │   │   ├── alb_controller/
 │   │   ├── backend/
+│   │   ├── certificate/
+│   │   ├── dns/
 │   │   ├── eks/
 │   │   ├── iam/
 │   │   │   ├── agent/
+│   │   │   ├── cert_manager/
 │   │   │   └── external_dns/
 │   │   ├── ingress/
-│   │   ├── route53/
 │   │   └── vpc/
 │   │
 │   ├── azure/
 │   │   ├── acr/
 │   │   ├── aks/
 │   │   ├── dns/
+│   │   ├── private_dns/
 │   │   ├── resource_group/
 │   │   └── vnet/
 │   │
 │   ├── gcp/
-│   │   └── iam/
+│   │   ├── acr/
+│   │   ├── dns/
+│   │   ├── gke/
+│   │   ├── iam/
+│   │   ├── nat/
+│   │   └── vnet/
 │   │
 │   └── commons/
 │       ├── cert_manager/
 │       ├── external_dns/
-│       └── istio/
+│       ├── istio/
+│       └── prometheus/
 │
 ├── nullplatform/
 │   ├── account/
@@ -69,7 +76,6 @@ all projects.
 └── README.md
 ```
 
-
 ## 🧰 Prerequisites
 
 These modules depend on the following tools:
@@ -86,7 +92,6 @@ https://docs.gomplate.ca/installing/
 # Install np CLI
 curl -fsSL https://cli.nullplatform.com/install.sh | sh
 ```
-
 
 ## 🚀 Using the modules
 
@@ -122,28 +127,25 @@ curl -fsSL https://cli.nullplatform.com/install.sh | sh
    tofu apply
    ```
 
-
 ## 📄 Module documentation
 
 Each module must include its own `README.md` file describing:
 
-- **Purpose** — what the module does and when to use it.  
-- **Inputs** — variables (`variables.tf`) with descriptions, types, and default values.  
-- **Outputs** — (`outputs.tf`) explaining what’s returned.  
-- **Usage examples** — small working HCL snippets.  
+- **Purpose** — what the module does and when to use it.
+- **Inputs** — variables (`variables.tf`) with descriptions, types, and default values.
+- **Outputs** — (`outputs.tf`) explaining what's returned.
+- **Usage examples** — small working HCL snippets.
 - **Notes** — any internal dependencies, restrictions, or compatibility details.
-
 
 ## 🧪 Validations and CI/CD workflows
 
 In `.github/workflows/`, you can include workflows for:
 
-- Terraform / Tofu syntax validation.  
-- Auto-formatting with `tofu fmt`.  
-- Logical validation using `tofu validate`.  
+- Terraform / Tofu syntax validation.
+- Auto-formatting with `tofu fmt`.
+- Logical validation using `tofu validate`.
 
 These ensure code consistency and prevent configuration drift.
-
 
 ## 📌 Versioning and releases
 
@@ -151,15 +153,13 @@ These ensure code consistency and prevent configuration drift.
 - Keep backward compatibility within **minor** versions.
 - Increment the **major** version for breaking changes.
 
-
 ## 🛠️ Best practices
 
-- Keep each module isolated: one module = one clear responsibility.  
-- Avoid circular dependencies between modules.  
-- Document all variables (mark required vs optional).  
-- Tag and version releases before using them in production.  
+- Keep each module isolated: one module = one clear responsibility.
+- Avoid circular dependencies between modules.
+- Document all variables (mark required vs optional).
+- Tag and version releases before using them in production.
 - Centralize repeated logic in these modules to avoid duplication.
-
 
 ## 👥 Contributing
 
@@ -189,9 +189,9 @@ chore: update provider versions
 **Invalid commit examples:**
 
 ```bash
-added new feature        # ❌ missing type prefix
-Fix bug                  # ❌ type must be lowercase
-feat add login           # ❌ missing colon after type
+added new feature        # missing type prefix
+Fix bug                  # type must be lowercase
+feat add login           # missing colon after type
 ```
 
 **Setup pre-commit hooks:**
