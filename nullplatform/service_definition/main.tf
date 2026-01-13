@@ -1,71 +1,8 @@
 
 ################################################################################
-# Step 1: Fetch Templates
-################################################################################
-
-# Fetch service specification template
-data "github_repository_file" "service_spec_template" {
-  repository = var.git_repo
-  branch     = var.git_ref
-  file       = "${var.git_service_path}/specs/service-spec.json${var.use_tpl_files ? ".tpl" : ""}"
-}
-
-################################################################################
-# Step 2: Process Service Specification First (to determine available actions/links)
-################################################################################
-
-locals {
-  # Process the service spec template first to know what actions/links are available
-  # replace is done because some old templates contain gomplate placeholders
-  service_spec_rendered = var.use_tpl_files ? replace(
-    data.github_repository_file.service_spec_template.content,
-    "/\"{{\\s+env.Getenv\\s+\".*\"\\s+}}\"/",
-    "\"${var.nrn}\""
-  ) : data.github_repository_file.service_spec_template.content
-  service_spec_parsed = jsondecode(local.service_spec_rendered)
-  available_actions   = try(local.service_spec_parsed.available_actions, [])
-  available_links     = try(local.service_spec_parsed.available_links, [])
-  has_links           = length(local.available_links) > 0
-  visible_to_nrns     = concat([var.nrn], var.extra_visibile_to_nrns)
-}
-
-# Fetch link specification template (only if service has links)
-data "github_repository_file" "link_spec_template" {
-  count      = local.has_links ? 1 : 0
-  repository = var.git_repo
-  branch     = var.git_ref
-  file       = "${var.git_service_path}/specs/link-spec.json${var.use_tpl_files ? ".tpl" : ""}"
-}
-
-# Fetch action specification templates
-data "github_repository_file" "action_templates" {
-  for_each   = toset(local.available_actions)
-  repository = var.git_repo
-  branch     = var.git_ref
-  file       = "${var.git_service_path}/specs/actions/${each.key}.json${var.use_tpl_files ? ".tpl" : ""}"
-}
-
-# Fetch link specification templates (only if service has links)
-data "github_repository_file" "link_templates" {
-  for_each   = toset(local.available_links)
-  repository = var.git_repo
-  branch     = var.git_ref
-  file       = "${var.git_service_path}/specs/links/${each.key}.json${var.use_tpl_files ? ".tpl" : ""}"
-}
-
-################################################################################
 # Step 3: Process Link Specification (if applicable)
 ################################################################################
 
-locals {
-  # Process link spec template only if service has links
-  link_spec_rendered = local.has_links ? (var.use_tpl_files ? replace(
-    data.github_repository_file.link_spec_template[0].content,
-    "/\"{{\\s+env.Getenv\\s+\".*\"\\s+}}\"/",
-    "\"${var.nrn}\""
-  ) : data.github_repository_file.link_spec_template[0].content) : "{}"
-  link_spec_parsed = local.has_links ? jsondecode(local.link_spec_rendered) : {}
-}
 
 # Create service specification
 resource "nullplatform_service_specification" "from_template" {
@@ -84,31 +21,6 @@ resource "nullplatform_service_specification" "from_template" {
   dimensions = jsonencode(var.dimensions)
 }
 
-locals {
-  # Variables that depend on created service specification
-  service_specification_id = nullplatform_service_specification.from_template.id
-  service_slug             = nullplatform_service_specification.from_template.slug
-
-  dependent_env_vars = {
-    NRN                      = var.nrn
-    SERVICE_SPECIFICATION_ID = local.service_specification_id
-    SERVICE_SLUG             = local.service_slug
-  }
-}
-
-################################################################################
-# Process action templates - conditional processing based on file type
-# replace is done because some old templates contain gomplate placeholders
-locals {
-  action_specs_parsed = {
-    for name in local.available_actions :
-    name => jsondecode(var.use_tpl_files ? replace(
-      data.github_repository_file.action_templates[name].content,
-      "/\"{{\\s+env.Getenv\\s+\".*\"\\s+}}\"/",
-      "\"\""
-    ) : data.github_repository_file.action_templates[name].content)
-  }
-}
 
 # Create action specifications
 resource "nullplatform_action_specification" "from_templates" {
@@ -125,16 +37,6 @@ resource "nullplatform_action_specification" "from_templates" {
 }
 
 
-locals {
-  link_specs_parsed = {
-    for name in local.available_links :
-    name => jsondecode(var.use_tpl_files ? replace(
-      data.github_repository_file.link_templates[name].content,
-      "/\"{{\\s+env.Getenv\\s+\".*\"\\s+}}\"/",
-      "\"\""
-    ) : data.github_repository_file.link_templates[name].content)
-  }
-}
 
 # Create link specification from link-spec template (only if service has links)
 resource "nullplatform_link_specification" "service_link_from_template" {
