@@ -7,11 +7,6 @@ variable "vnet_name" {
   description = "The name of the virtual network"
 }
 
-variable "location" {
-  type        = string
-  description = "The AWS region where the virtual network will be created (e.g., us-east-1, us-west-2)"
-}
-
 variable "address_space" {
   type        = string
   description = "The address space (CIDR block) for the virtual network (e.g., 10.0.0.0/16)"
@@ -42,10 +37,3 @@ variable "tags" {
   description = "A mapping of tags to assign to the virtual network resources"
   default     = {}
 }
-
-###############################################################################
-# NOTE: resource_group_name
-# In Azure, resources are organized into resource groups. AWS does not have
-# this concept - resources are organized by region and account. Tags can be
-# used for logical grouping in AWS.
-###############################################################################

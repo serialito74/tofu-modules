@@ -7,11 +7,6 @@ variable "cluster_name" {
   description = "The name of the EKS cluster"
 }
 
-variable "location" {
-  type        = string
-  description = "The AWS region where the EKS cluster will be deployed (e.g., us-east-1, us-west-2)"
-}
-
 variable "vpc_id" {
   type        = string
   description = "The ID of the VPC/VNet where the EKS cluster will be deployed"

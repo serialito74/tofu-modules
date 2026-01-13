@@ -26,13 +26,3 @@ variable "chart_aws_load_balancer_controller_version" {
   description = "The version of the AWS Load Balancer Controller Helm chart"
   default     = "1.13.4"
 }
-
-###############################################################################
-# OPTIONAL VARIABLES - TAGS AND METADATA
-###############################################################################
-
-variable "tags" {
-  type        = map(string)
-  description = "A mapping of tags to assign to the resources"
-  default     = {}
-}

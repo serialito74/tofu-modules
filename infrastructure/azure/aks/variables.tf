@@ -86,16 +86,6 @@ variable "oidc_issuer_enabled" {
 }
 
 ###############################################################################
-# OPTIONAL VARIABLES - MONITORING
-###############################################################################
-
-variable "cluster_log_analytics_workspace_name" {
-  type        = string
-  description = "The name of the Log Analytics workspace used for cluster monitoring"
-  default     = null
-}
-
-###############################################################################
 # OPTIONAL VARIABLES - TAGS AND METADATA
 ###############################################################################
 
@@ -103,12 +93,6 @@ variable "tags" {
   type        = map(string)
   description = "A mapping of tags to assign to the AKS cluster and related resources"
   default     = {}
-}
-
-variable "environment" {
-  type        = string
-  description = "The environment name used for tagging and naming purposes"
-  default     = "nullplatform"
 }
 
 ###############################################################################
