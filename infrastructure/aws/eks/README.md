@@ -45,7 +45,6 @@ module "eks" {
 | <a name="input_cluster_name"></a> [cluster\_name](#input\_cluster\_name) | The name of the EKS cluster | `string` | n/a | yes |
 | <a name="input_instance_types"></a> [instance\_types](#input\_instance\_types) | EC2 instance type to use for the node pool (e.g., t3.medium, m5.large) | `string` | `"t3.medium"` | no |
 | <a name="input_kubernetes_version"></a> [kubernetes\_version](#input\_kubernetes\_version) | The version of Kubernetes to use for the EKS cluster | `string` | `"1.32"` | no |
-| <a name="input_location"></a> [location](#input\_location) | The AWS region where the EKS cluster will be deployed (e.g., us-east-1, us-west-2) | `string` | n/a | yes |
 | <a name="input_tags"></a> [tags](#input\_tags) | A mapping of tags to assign to the EKS cluster and related resources | `map(string)` | `{}` | no |
 | <a name="input_vpc_id"></a> [vpc\_id](#input\_vpc\_id) | The ID of the VPC/VNet where the EKS cluster will be deployed | `string` | n/a | yes |
 | <a name="input_vpc_subnet_ids"></a> [vpc\_subnet\_ids](#input\_vpc\_subnet\_ids) | List of private subnet IDs for the EKS cluster and node groups | `list(string)` | n/a | yes |

@@ -34,7 +34,6 @@ module "vpc" {
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_address_space"></a> [address\_space](#input\_address\_space) | The address space (CIDR block) for the virtual network (e.g., 10.0.0.0/16) | `string` | n/a | yes |
-| <a name="input_location"></a> [location](#input\_location) | The AWS region where the virtual network will be created (e.g., us-east-1, us-west-2) | `string` | n/a | yes |
 | <a name="input_subnets_definition"></a> [subnets\_definition](#input\_subnets\_definition) | Subnet configuration for the virtual network including availability zones and CIDR blocks | <pre>object({<br/>    availability_zones = list(string)<br/>    private_subnets    = list(string)<br/>    public_subnets     = list(string)<br/>  })</pre> | n/a | yes |
 | <a name="input_tags"></a> [tags](#input\_tags) | A mapping of tags to assign to the virtual network resources | `map(string)` | `{}` | no |
 | <a name="input_vnet_name"></a> [vnet\_name](#input\_vnet\_name) | The name of the virtual network | `string` | n/a | yes |
