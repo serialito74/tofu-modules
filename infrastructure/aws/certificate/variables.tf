@@ -2,29 +2,24 @@
 # REQUIRED VARIABLES
 ###############################################################################
 
-variable "cluster_name" {
+variable "domain_name" {
   type        = string
-  description = "The name of the EKS cluster"
+  description = "The domain name for which to request the SSL certificate"
 }
 
-variable "vpc_id" {
+variable "dns_zone_id" {
   type        = string
-  description = "The ID of the VPC/VNet where load balancers will be deployed"
-}
-
-variable "oidc_provider_arn" {
-  type        = string
-  description = "The ARN of the OIDC provider for EKS cluster authentication"
+  description = "The ID of the DNS zone where certificate will be validated"
 }
 
 ###############################################################################
-# OPTIONAL VARIABLES - HELM CONFIGURATION
+# OPTIONAL VARIABLES - CERTIFICATE CONFIGURATION
 ###############################################################################
 
-variable "chart_aws_load_balancer_controller_version" {
-  type        = string
-  description = "The version of the AWS Load Balancer Controller Helm chart"
-  default     = "1.13.4"
+variable "subject_alternative_names" {
+  type        = list(string)
+  description = "Alternative DNS names to add to the certificate"
+  default     = []
 }
 
 ###############################################################################
@@ -33,6 +28,6 @@ variable "chart_aws_load_balancer_controller_version" {
 
 variable "tags" {
   type        = map(string)
-  description = "A mapping of tags to assign to the resources"
+  description = "A mapping of tags to assign to the certificate"
   default     = {}
 }

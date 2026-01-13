@@ -2,29 +2,36 @@
 # REQUIRED VARIABLES
 ###############################################################################
 
-variable "cluster_name" {
+variable "project_id" {
   type        = string
-  description = "The name of the EKS cluster"
+  description = "The GCP project ID"
 }
 
-variable "vpc_id" {
+variable "domain_name" {
   type        = string
-  description = "The ID of the VPC/VNet where load balancers will be deployed"
-}
-
-variable "oidc_provider_arn" {
-  type        = string
-  description = "The ARN of the OIDC provider for EKS cluster authentication"
+  description = "The domain name to use for the DNS zone (e.g., example.com)"
 }
 
 ###############################################################################
-# OPTIONAL VARIABLES - HELM CONFIGURATION
+# OPTIONAL VARIABLES - DNS CONFIGURATION
 ###############################################################################
 
-variable "chart_aws_load_balancer_controller_version" {
+variable "dns_zone_name" {
   type        = string
-  description = "The version of the AWS Load Balancer Controller Helm chart"
-  default     = "1.13.4"
+  description = "The name of the DNS zone resource (defaults to domain name with dashes)"
+  default     = null
+}
+
+variable "visibility" {
+  type        = string
+  description = "Zone visibility: public or private"
+  default     = "public"
+}
+
+variable "vnet_ids" {
+  type        = list(string)
+  description = "VNet self-links for private DNS zone association"
+  default     = []
 }
 
 ###############################################################################
@@ -33,6 +40,6 @@ variable "chart_aws_load_balancer_controller_version" {
 
 variable "tags" {
   type        = map(string)
-  description = "A mapping of tags to assign to the resources"
+  description = "A mapping of labels to assign to the DNS zone"
   default     = {}
 }

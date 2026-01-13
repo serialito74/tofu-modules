@@ -19,7 +19,7 @@ resource "aws_route53_record" "cert_validation" {
   }
 
   allow_overwrite = true
-  zone_id         = var.zone_id
+  zone_id         = var.dns_zone_id
   name            = each.value.name
   type            = each.value.type
   ttl             = 60

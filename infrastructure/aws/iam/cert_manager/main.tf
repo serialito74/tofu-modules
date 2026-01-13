@@ -6,7 +6,7 @@ module "nullplatform_cert_manager_role" {
 
   oidc_providers = {
     main = {
-      provider_arn               = var.aws_iam_openid_connect_provider_arn
+      provider_arn               = var.oidc_provider_arn
       namespace_service_accounts = ["cert-manager:cert-manager"]
     }
   }
@@ -34,8 +34,8 @@ resource "aws_iam_policy" "nullplatform_cert_manager_policy" {
           "route53:ChangeResourceRecordSets",
           "route53:ListResourceRecordSets"
         ],
-        "Resource" : ["arn:aws:route53:::hostedzone/${var.hosted_zone_public_id}",
-        "arn:aws:route53:::hostedzone/${var.hosted_zone_private_id}"]
+        "Resource" : ["arn:aws:route53:::hostedzone/${var.dns_zone_public_id}",
+        "arn:aws:route53:::hostedzone/${var.dns_zone_private_id}"]
       },
       {
         "Effect" : "Allow",

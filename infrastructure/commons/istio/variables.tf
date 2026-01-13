@@ -1,29 +1,28 @@
 ###############################################################################
-# ISTIO CONFIGURATION
+# OPTIONAL VARIABLES - HELM CONFIGURATION
 ###############################################################################
 
-variable "istio_base_version" {
-  type    = string
-  default = "1.27.1"
-
+variable "chart_version" {
+  type        = string
+  description = "The version of Istio Helm charts to deploy"
+  default     = "1.27.1"
 }
 
-variable "istio_ingressgateway_version" {
-  type    = string
-  default = "1.27.1"
-
+variable "namespace" {
+  type        = string
+  description = "The Kubernetes namespace where Istio will be installed"
+  default     = "istio-system"
 }
 
-variable "istiod_version" {
-  type    = string
-  default = "1.27.1"
-
+variable "repository" {
+  type        = string
+  description = "The Helm repository URL for Istio charts"
+  default     = "https://istio-release.storage.googleapis.com/charts"
 }
 
 ###############################################################################
-# SERVICE CONFIGURATION
+# OPTIONAL VARIABLES - SERVICE CONFIGURATION
 ###############################################################################
-
 
 variable "service_type" {
   type        = string
@@ -33,7 +32,7 @@ variable "service_type" {
 
 variable "status_port" {
   type        = number
-  description = "The status port used (status-port)"
+  description = "The status port for health checks"
   default     = 15021
 }
 
@@ -50,31 +49,10 @@ variable "https_target_port" {
 }
 
 ###############################################################################
-# REPOSITORY CONFIGURATION
+# OPTIONAL VARIABLES - HTTP2 CONFIGURATION
 ###############################################################################
 
-variable "repository" {
-  type        = string
-  description = "The Helm repository URL (e.g., https://istio-release.storage.googleapis.com/charts)."
-  default     = "https://istio-release.storage.googleapis.com/charts"
-}
-
-###############################################################################
-# DEPLOYMENT CONFIGURATION
-###############################################################################
-
-variable "namespace" {
-  type        = string
-  description = "The Kubernetes namespace where gateway will be installed."
-  default     = "istio-system"
-
-}
-
-###############################################################################
-# HTTP2 CONFIGURATION
-###############################################################################
-
-variable "enable_http2" {
+variable "http2_enabled" {
   type        = bool
   description = "Whether to expose the HTTP2 (port 80) service"
   default     = false
@@ -82,7 +60,7 @@ variable "enable_http2" {
 
 variable "http2_port" {
   type        = number
-  description = "The external service port for HTTP2 when enabled."
+  description = "The external service port for HTTP2 when enabled"
   default     = 80
 }
 

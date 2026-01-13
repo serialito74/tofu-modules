@@ -2,29 +2,29 @@
 # REQUIRED VARIABLES
 ###############################################################################
 
-variable "cluster_name" {
+variable "project_id" {
   type        = string
-  description = "The name of the EKS cluster"
+  description = "The GCP project ID"
 }
 
-variable "vpc_id" {
+variable "location" {
   type        = string
-  description = "The ID of the VPC/VNet where load balancers will be deployed"
+  description = "The GCP region where the container registry will be created (e.g., us-central1, europe-west1)"
 }
 
-variable "oidc_provider_arn" {
+variable "containerregistry_name" {
   type        = string
-  description = "The ARN of the OIDC provider for EKS cluster authentication"
+  description = "The name of the container registry (repository ID)"
 }
 
 ###############################################################################
-# OPTIONAL VARIABLES - HELM CONFIGURATION
+# OPTIONAL VARIABLES - REGISTRY CONFIGURATION
 ###############################################################################
 
-variable "chart_aws_load_balancer_controller_version" {
+variable "format" {
   type        = string
-  description = "The version of the AWS Load Balancer Controller Helm chart"
-  default     = "1.13.4"
+  description = "The format of the repository (DOCKER, NPM, PYTHON, etc)"
+  default     = "DOCKER"
 }
 
 ###############################################################################
@@ -33,6 +33,6 @@ variable "chart_aws_load_balancer_controller_version" {
 
 variable "tags" {
   type        = map(string)
-  description = "A mapping of tags to assign to the resources"
+  description = "A mapping of labels to assign to the container registry"
   default     = {}
 }

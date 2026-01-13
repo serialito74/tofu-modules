@@ -1,115 +1,125 @@
 ###############################################################################
-# EXTERNAL-DNS CONFIGURATION
+# REQUIRED VARIABLES
 ###############################################################################
 
-variable "external_dns_version" {
-  description = "The version of ExternalDNS Helm chart to deploy"
+variable "dns_provider" {
   type        = string
-  default     = "1.19.0"
-}
+  description = "The DNS provider to use with ExternalDNS (cloudflare or aws)"
 
-variable "external_dns_namespace" {
-  description = "The Kubernetes namespace where ExternalDNS will be deployed"
-  type        = string
-  default     = "external-dns"
+  validation {
+    condition     = contains(["cloudflare", "aws"], var.dns_provider)
+    error_message = "dns_provider must be either 'cloudflare' or 'aws'."
+  }
 }
 
 variable "domain_filters" {
-  description = "The domain filter to limit ExternalDNS to manage DNS records only for specific domains"
   type        = string
+  description = "The domain filter to limit ExternalDNS to manage DNS records only for specific domains"
 }
 
-variable "txt_owner_id" {
-  description = "The TXT owner ID used by ExternalDNS to identify DNS records it manages"
+###############################################################################
+# OPTIONAL VARIABLES - HELM CONFIGURATION
+###############################################################################
+
+variable "chart_version" {
   type        = string
+  description = "The version of ExternalDNS Helm chart to deploy"
+  default     = "1.19.0"
+}
+
+variable "namespace" {
+  type        = string
+  description = "The Kubernetes namespace where ExternalDNS will be deployed"
+  default     = "external-dns"
+}
+
+###############################################################################
+# OPTIONAL VARIABLES - EXTERNAL DNS CONFIGURATION
+###############################################################################
+
+variable "txt_owner_id" {
+  type        = string
+  description = "The TXT owner ID used by ExternalDNS to identify DNS records it manages"
   default     = "external_dns"
 }
 
 variable "policy" {
-  description = "The policy to external dns manage the DNS records"
   type        = string
+  description = "The policy for ExternalDNS to manage DNS records (create-only, sync, upsert-only)"
   default     = "upsert-only"
+
   validation {
     condition     = contains(["create-only", "sync", "upsert-only"], var.policy)
-    error_message = "policy must be either 'create-only', 'sync', 'upsert-only' ."
+    error_message = "policy must be either 'create-only', 'sync', or 'upsert-only'."
   }
 }
 
 variable "sources" {
-  description = "Array contents the sources to external dns work"
   type        = list(string)
+  description = "The sources for ExternalDNS to watch for DNS records"
   default     = ["crd"]
 }
 
 ###############################################################################
-# CLOUDFLARE CONFIGURATION
+# OPTIONAL VARIABLES - AWS CONFIGURATION
 ###############################################################################
 
-
-variable "cloudflare_token" {
-  description = "The Cloudflare API token for DNS management (required when dns_provider_name is 'cloudflare')"
+variable "location" {
   type        = string
-  sensitive   = true
+  description = "The AWS region where the Route53 hosted zones are located (required when dns_provider is 'aws')"
   default     = null
-  validation {
-    condition     = var.dns_provider_name != "cloudflare" || var.cloudflare_token != null
-    error_message = "cloudflare_token is required when dns_provider_name is 'cloudflare'."
-  }
-}
 
-###############################################################################
-# AWS CONFIGURATION
-###############################################################################
-
-variable "aws_region" {
-  description = "The AWS region where the Route53 hosted zones are located"
-  type        = string
-  default = null
   validation {
-    condition     = var.dns_provider_name != "aws" || var.aws_region != null
-    error_message = "aws_region is required when dns_provider_name is 'aws'."
+    condition     = var.dns_provider != "aws" || var.location != null
+    error_message = "location is required when dns_provider is 'aws'."
   }
 }
 
 variable "aws_iam_role_arn" {
-  description = "The IAM role ARN for ExternalDNS to assume for Route53 access (required when dns_provider_name is 'aws')"
   type        = string
+  description = "The IAM role ARN for ExternalDNS to assume for Route53 access (required when dns_provider is 'aws')"
   default     = null
+
   validation {
-    condition     = var.dns_provider_name != "aws" || var.aws_iam_role_arn != null
-    error_message = "aws_iam_role_arn is required when dns_provider_name is 'aws'."
+    condition     = var.dns_provider != "aws" || var.aws_iam_role_arn != null
+    error_message = "aws_iam_role_arn is required when dns_provider is 'aws'."
   }
 }
 
-variable "public_hosted_zone_id" {
-  description = "The Route53 public hosted zone ID for ExternalDNS to manage (required when dns_provider_name is 'aws')"
+variable "dns_zone_public_id" {
   type        = string
+  description = "The Route53 public hosted zone ID for ExternalDNS to manage (required when dns_provider is 'aws')"
   default     = ""
+
   validation {
-    condition     = var.dns_provider_name != "aws" || var.public_hosted_zone_id != ""
-    error_message = "public_hosted_zone_id is required when dns_provider_name is 'aws'."
+    condition     = var.dns_provider != "aws" || var.dns_zone_public_id != ""
+    error_message = "dns_zone_public_id is required when dns_provider is 'aws'."
   }
 }
 
-variable "private_hosted_zone_id" {
-  description = "The Route53 private hosted zone ID for ExternalDNS to manage (required when dns_provider_name is 'aws')"
+variable "dns_zone_private_id" {
   type        = string
+  description = "The Route53 private hosted zone ID for ExternalDNS to manage (required when dns_provider is 'aws')"
   default     = ""
+
   validation {
-    condition     = var.dns_provider_name != "aws" || var.private_hosted_zone_id != ""
-    error_message = "private_hosted_zone_id is required when dns_provider_name is 'aws'."
+    condition     = var.dns_provider != "aws" || var.dns_zone_private_id != ""
+    error_message = "dns_zone_private_id is required when dns_provider is 'aws'."
   }
 }
 
 ###############################################################################
-# DNS PROVIDER CONFIGURATION
+# OPTIONAL VARIABLES - CLOUDFLARE CONFIGURATION
 ###############################################################################
 
-variable "dns_provider_name" {
+variable "cloudflare_token" {
   type        = string
-  description = "The DNS provider to use with ExternalDNS "
+  description = "The Cloudflare API token for DNS management (required when dns_provider is 'cloudflare')"
+  sensitive   = true
+  default     = null
+
   validation {
-    condition     = contains(["cloudflare", "aws"], var.dns_provider_name)
-    error_message = "dns_provider_name must be either 'cloudflare' or 'aws'."
+    condition     = var.dns_provider != "cloudflare" || var.cloudflare_token != null
+    error_message = "cloudflare_token is required when dns_provider is 'cloudflare'."
   }
 }

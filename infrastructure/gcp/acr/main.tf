@@ -1,14 +1,16 @@
 resource "google_artifact_registry_repository" "registry" {
   project       = var.project_id
   location      = var.location
-  repository_id = var.repository_id
+  repository_id = var.containerregistry_name
   format        = var.format
+
+  labels = var.tags
 }
 
 
 resource "google_service_account" "artifact_sa" {
   account_id   = "artifact-registry-sa"
-  display_name = "Service Account para Artifact Registry"
+  display_name = "Service Account for Artifact Registry"
   description  = "Used to push/pull Docker images"
 }
 

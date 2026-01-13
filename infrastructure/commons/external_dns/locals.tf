@@ -25,7 +25,7 @@ locals {
     provider = { name = "aws" }
     env = [{
       name  = "AWS_DEFAULT_REGION"
-      value = var.aws_region
+      value = var.location
     }]
     serviceAccount = {
       create = true
@@ -35,7 +35,7 @@ locals {
     }
     extraArgs = compact([
       "--aws-zone-type=public",
-      "--zone-id-filter=${var.public_hosted_zone_id}",
+      "--zone-id-filter=${var.dns_zone_public_id}",
       "--domain-filter=${var.domain_filters}"
     ])
   }
@@ -45,5 +45,5 @@ locals {
     aws        = local.route53_config
   }
 
-  external_dns_values = merge(local.base_config, local.provider_configs[var.dns_provider_name])
+  external_dns_values = merge(local.base_config, local.provider_configs[var.dns_provider])
 }

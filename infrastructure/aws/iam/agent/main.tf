@@ -10,7 +10,7 @@ module "nullplatform_agent_role" {
 
   oidc_providers = {
     main = {
-      provider_arn               = var.aws_iam_openid_connect_provider_arn
+      provider_arn               = var.oidc_provider_arn
       namespace_service_accounts = ["${var.agent_namespace}:nullplatform-agent"]
     }
   }

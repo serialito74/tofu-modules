@@ -1,4 +1,8 @@
+###############################################################################
+# REQUIRED VARIABLES
+###############################################################################
+
 variable "certificate_arn" {
-  description = "ARN of the SSL/TLS certificate for the network configuration"
   type        = string
+  description = "The ARN of the SSL/TLS certificate for the ingress"
 }

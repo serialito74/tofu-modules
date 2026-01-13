@@ -2,7 +2,7 @@ module "eks" {
   source  = "terraform-aws-modules/eks/aws"
   version = "~> 21.0"
 
-  name               = var.name
+  name               = var.cluster_name
   kubernetes_version = var.kubernetes_version
 
   create_cloudwatch_log_group = false
@@ -26,9 +26,9 @@ module "eks" {
   # Optional: Adds the current caller identity as an administrator via cluster access entry
   enable_cluster_creator_admin_permissions = true
 
-  vpc_id                   = var.aws_vpc_vpc_id
-  subnet_ids               = var.aws_subnets_private_ids
-  control_plane_subnet_ids = var.aws_subnets_private_ids
+  vpc_id                   = var.vpc_id
+  subnet_ids               = var.vpc_subnet_ids
+  control_plane_subnet_ids = var.vpc_subnet_ids
 
   # Reglas adicionales para webhooks (Istio, cert-manager, etc.)
   node_security_group_additional_rules = {
@@ -43,7 +43,7 @@ module "eks" {
   }
 
   # EKS Managed Node Group(s)
-  eks_managed_node_groups = var.use_auto_mode ? {} : {
+  eks_managed_node_groups = var.auto_mode_enabled ? {} : {
     nullplatform = {
       # Starting on 1.30, AL2023 is the default AMI type for EKS managed node groups
       ami_type       = var.ami_type
@@ -57,13 +57,15 @@ module "eks" {
   # ==========================================
   #  AUTO MODE
   # ==========================================
-  create_auto_mode_iam_resources = var.use_auto_mode ? true : false
+  create_auto_mode_iam_resources = var.auto_mode_enabled ? true : false
 
-  compute_config = var.use_auto_mode ? {
+  compute_config = var.auto_mode_enabled ? {
     enabled    = true
     node_pools = var.auto_mode_node_pools
     } : {
     enabled    = false
     node_pools = []
   }
+
+  tags = var.tags
 }

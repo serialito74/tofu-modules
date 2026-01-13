@@ -1,11 +1,19 @@
-variable "nullplatform_port" {
-  description = "Port number for nullplatform service communication"
-  type        = number
-  default     = 2021
+###############################################################################
+# OPTIONAL VARIABLES - HELM CONFIGURATION
+###############################################################################
+
+variable "namespace" {
+  type        = string
+  description = "The Kubernetes namespace where Prometheus will be deployed"
+  default     = "prometheus"
 }
 
-variable "prometheus_namespace" {
-  description = "Kubernetes namespace where Prometheus will be deployed"
-  type        = string
-  default     = "prometheus"
+###############################################################################
+# OPTIONAL VARIABLES - SERVICE CONFIGURATION
+###############################################################################
+
+variable "nullplatform_port" {
+  type        = number
+  description = "The port number for nullplatform service communication"
+  default     = 2021
 }

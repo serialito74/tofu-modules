@@ -4,11 +4,11 @@ module "gke" {
 
   project_id          = var.project_id
   name                = var.cluster_name
-  region              = var.region
-  deletion_protection = var.deletion_protection
+  region              = var.location
+  deletion_protection = var.deletion_protection_enabled
 
-  network           = var.network_name
-  subnetwork        = var.subnetwork_name
+  network           = var.vnet_name
+  subnetwork        = var.vnet_subnet_name
   ip_range_pods     = var.ip_range_pods
   ip_range_services = var.ip_range_services
 
@@ -21,7 +21,7 @@ module "gke" {
   remove_default_node_pool = true
   initial_node_count       = 1
 
-  master_authorized_networks = var.master_authorized_networks
+  master_authorized_networks = var.authorized_ip_ranges
 
   node_pools = var.node_pools
 

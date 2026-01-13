@@ -3,13 +3,13 @@ module "vpc" {
   version = "~> 9.0"
 
   project_id   = var.project_id
-  network_name = var.network_name
+  network_name = var.vnet_name
 
   subnets = [
-    for s in var.subnets : {
-      subnet_name           = s.subnet_name
-      subnet_ip             = s.subnet_ip
-      subnet_region         = s.subnet_region
+    for s in var.subnets_definition : {
+      subnet_name           = s.name
+      subnet_ip             = s.address_prefix
+      subnet_region         = s.location
       subnet_private_access = true
     }
   ]

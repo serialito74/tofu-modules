@@ -2,7 +2,8 @@ resource "helm_release" "cert_manager" {
   name       = "cert-manager"
   repository = "https://charts.jetstack.io"
   chart      = "cert-manager"
-  namespace  = var.cert_manager_namespace
+  version    = var.chart_version
+  namespace  = var.namespace
 
   create_namespace  = true
   disable_webhooks  = false
@@ -19,19 +20,17 @@ resource "helm_release" "cert_manager" {
   dependency_update = true
   max_history       = 10
 
-
   values = [
     yamlencode(local.cert_manager_values)
   ]
 }
 
-
 resource "helm_release" "cert_manager_config" {
   name       = "cert-manager-config"
   repository = "https://nullplatform.github.io/helm-charts"
   chart      = "nullplatform-cert-manager-config"
-  version    = var.cert_manager_config_version
-  namespace  = var.cert_manager_namespace
+  version    = var.config_chart_version
+  namespace  = var.namespace
 
   create_namespace  = true
   disable_webhooks  = false
@@ -55,4 +54,3 @@ resource "helm_release" "cert_manager_config" {
 
   depends_on = [helm_release.cert_manager]
 }
-

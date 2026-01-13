@@ -1,38 +1,70 @@
-variable "name" {
+###############################################################################
+# REQUIRED VARIABLES
+###############################################################################
+
+variable "cluster_name" {
   type        = string
-  description = "Cluster name"
+  description = "The name of the EKS cluster"
 }
+
+variable "location" {
+  type        = string
+  description = "The AWS region where the EKS cluster will be deployed (e.g., us-east-1, us-west-2)"
+}
+
+variable "vpc_id" {
+  type        = string
+  description = "The ID of the VPC/VNet where the EKS cluster will be deployed"
+}
+
+variable "vpc_subnet_ids" {
+  type        = list(string)
+  description = "List of private subnet IDs for the EKS cluster and node groups"
+}
+
+###############################################################################
+# OPTIONAL VARIABLES - KUBERNETES CONFIGURATION
+###############################################################################
+
+variable "kubernetes_version" {
+  type        = string
+  description = "The version of Kubernetes to use for the EKS cluster"
+  default     = "1.32"
+}
+
+###############################################################################
+# OPTIONAL VARIABLES - NODE POOLS
+###############################################################################
 
 variable "ami_type" {
   type        = string
-  description = "AMI type to use with the node"
+  description = "AMI type to use with the node (e.g., AL2023_x86_64_STANDARD)"
   default     = "AL2023_x86_64_STANDARD"
 }
 
 variable "instance_types" {
   type        = string
-  description = "Instance type to use"
+  description = "EC2 instance type to use for the node pool (e.g., t3.medium, m5.large)"
   default     = "t3.medium"
 }
 
-variable "kubernetes_version" {
-  type        = string
-  description = "K8s version to use"
-  default     = "1.32"
+variable "auto_mode_enabled" {
+  type        = bool
+  description = "Whether to enable EKS Auto Mode instead of Managed Node Groups"
+  default     = false
 }
 
-variable "aws_vpc_vpc_id" {
-  description = "VPC ID where the EKS cluster will be deployed"
-  type        = string
-}
-
-variable "aws_subnets_private_ids" {
-  description = "List of private subnet IDs for the EKS cluster and node groups"
+variable "auto_mode_node_pools" {
   type        = list(string)
+  description = "Node pools for Auto Mode"
+  default     = ["general-purpose", "system"]
 }
+
+###############################################################################
+# OPTIONAL VARIABLES - IDENTITY AND RBAC
+###############################################################################
 
 variable "access_entries" {
-  description = "Map of access entries for the EKS cluster"
   type = map(object({
     principal_arn     = string
     user_name         = optional(string)
@@ -47,18 +79,16 @@ variable "access_entries" {
       }))
     })))
   }))
-  default = {}
+  description = "Map of access entries for the EKS cluster"
+  default     = {}
 }
 
-variable "use_auto_mode" {
-  description = "Use EKS Auto Mode (true) or Managed Node Groups (false)"
-  type        = bool
-  default     = false
-}
+###############################################################################
+# OPTIONAL VARIABLES - TAGS AND METADATA
+###############################################################################
 
-variable "auto_mode_node_pools" {
-  description = "Node pools for Auto Mode"
-  type        = list(string)
-  default     = ["general-purpose", "system"]
+variable "tags" {
+  type        = map(string)
+  description = "A mapping of tags to assign to the EKS cluster and related resources"
+  default     = {}
 }
-

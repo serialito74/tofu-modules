@@ -1,19 +1,23 @@
-variable "hosted_zone_public_id" {
-  description = "ID of the public Route53 hosted zone for DNS management"
-  type        = string
-}
-
-variable "hosted_zone_private_id" {
-  description = "ID of the private Route53 hosted zone for DNS management"
-  type        = string
-}
-
-variable "aws_iam_openid_connect_provider_arn" {
-  description = "ARN of the AWS IAM OIDC provider for EKS service account authentication"
-  type        = string
-}
+###############################################################################
+# REQUIRED VARIABLES
+###############################################################################
 
 variable "cluster_name" {
-  description = "Name of the cluster where the policy runs"
   type        = string
+  description = "The name of the EKS cluster where external-dns runs"
+}
+
+variable "oidc_provider_arn" {
+  type        = string
+  description = "The ARN of the OIDC provider for EKS service account authentication"
+}
+
+variable "dns_zone_public_id" {
+  type        = string
+  description = "The ID of the public DNS zone for DNS management"
+}
+
+variable "dns_zone_private_id" {
+  type        = string
+  description = "The ID of the private DNS zone for DNS management"
 }
