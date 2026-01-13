@@ -15,7 +15,7 @@ module "gke" {
   # Private cluster with public endpoint
   enable_private_endpoint = false
   enable_private_nodes    = true
-  master_ipv4_cidr_block  = "172.16.0.0/28"
+  master_ipv4_cidr_block  = var.master_ipv4_cidr_block
 
   # Security defaults
   remove_default_node_pool = true
