@@ -88,14 +88,18 @@ No modules.
 | <a name="output_workflow_override_path"></a> [workflow\_override\_path](#output\_workflow\_override\_path) | The path to the custom workflow file |
 | <a name="output_workflow_override_values"></a> [workflow\_override\_values](#output\_workflow\_override\_values) | The workflow override values |
 <!-- BEGIN_TF_DOCS -->
+## Requirements
 
+| Name | Version |
+|------|---------|
+| <a name="requirement_nullplatform"></a> [nullplatform](#requirement\_nullplatform) | ~> 0.0.76 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
 | <a name="provider_github"></a> [github](#provider\_github) | n/a |
-| <a name="provider_nullplatform"></a> [nullplatform](#provider\_nullplatform) | n/a |
+| <a name="provider_nullplatform"></a> [nullplatform](#provider\_nullplatform) | ~> 0.0.76 |
 
 ## Resources
 

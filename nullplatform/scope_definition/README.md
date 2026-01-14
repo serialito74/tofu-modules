@@ -20,7 +20,7 @@ module "scope_definition" {
 |------|---------|
 | <a name="requirement_external"></a> [external](#requirement\_external) | ~> 2.3.5 |
 | <a name="requirement_null"></a> [null](#requirement\_null) | ~> 3.2.4 |
-| <a name="requirement_nullplatform"></a> [nullplatform](#requirement\_nullplatform) | ~> 0.0.63 |
+| <a name="requirement_nullplatform"></a> [nullplatform](#requirement\_nullplatform) | ~> 0.0.76 |
 
 ## Providers
 
@@ -29,7 +29,7 @@ module "scope_definition" {
 | <a name="provider_external"></a> [external](#provider\_external) | ~> 2.3.5 |
 | <a name="provider_http"></a> [http](#provider\_http) | n/a |
 | <a name="provider_null"></a> [null](#provider\_null) | ~> 3.2.4 |
-| <a name="provider_nullplatform"></a> [nullplatform](#provider\_nullplatform) | ~> 0.0.63 |
+| <a name="provider_nullplatform"></a> [nullplatform](#provider\_nullplatform) | ~> 0.0.76 |
 
 ## Resources
 
