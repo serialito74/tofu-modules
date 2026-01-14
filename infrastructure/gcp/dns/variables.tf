@@ -28,9 +28,9 @@ variable "visibility" {
   default     = "public"
 }
 
-variable "vnet_ids" {
+variable "vpc_ids" {
   type        = list(string)
-  description = "VNet self-links for private DNS zone association"
+  description = "Vpc self-links for private DNS zone association"
   default     = []
 }
 

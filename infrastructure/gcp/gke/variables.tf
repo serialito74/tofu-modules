@@ -17,12 +17,12 @@ variable "location" {
   description = "The GCP region where the GKE cluster will be deployed (e.g., us-central1, europe-west1)"
 }
 
-variable "vnet_name" {
+variable "vpc_name" {
   type        = string
-  description = "The name of the virtual network"
+  description = "The name of the virtual private network"
 }
 
-variable "vnet_subnet_name" {
+variable "vpc_subnet_name" {
   type        = string
   description = "The name of the subnet where GKE nodes will be deployed"
 }

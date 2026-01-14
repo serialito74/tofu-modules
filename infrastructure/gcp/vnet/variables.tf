@@ -7,9 +7,9 @@ variable "project_id" {
   description = "The GCP project ID"
 }
 
-variable "vnet_name" {
+variable "vpc_name" {
   type        = string
-  description = "The name of the virtual network"
+  description = "The name of the virtual private network"
 }
 
 variable "subnets_definition" {

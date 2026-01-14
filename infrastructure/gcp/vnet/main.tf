@@ -3,7 +3,7 @@ module "vpc" {
   version = "~> 9.0"
 
   project_id   = var.project_id
-  network_name = var.vnet_name
+  network_name = var.vpc_name
 
   subnets = [
     for s in var.subnets_definition : {

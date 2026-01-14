@@ -7,8 +7,8 @@ module "gke" {
   region              = var.location
   deletion_protection = var.deletion_protection_enabled
 
-  network           = var.vnet_name
-  subnetwork        = var.vnet_subnet_name
+  network           = var.vpc_name
+  subnetwork        = var.vpc_subnet_name
   ip_range_pods     = var.ip_range_pods
   ip_range_services = var.ip_range_services
 

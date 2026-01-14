@@ -12,7 +12,7 @@ variable "location" {
   description = "The GCP region where Cloud NAT will be created (e.g., us-central1, europe-west1)"
 }
 
-variable "vnet_id" {
+variable "vpc_id" {
   type        = string
   description = "The self-link of the virtual network"
 }

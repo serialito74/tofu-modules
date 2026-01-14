@@ -12,7 +12,7 @@ resource "google_dns_managed_zone" "zone" {
     for_each = var.visibility == "private" ? [1] : []
     content {
       dynamic "networks" {
-        for_each = var.vnet_ids
+        for_each = var.vpc_ids
         content {
           network_url = networks.value
         }

@@ -7,7 +7,7 @@ variable "domain_name" {
   description = "The domain name to use for the DNS zone (e.g., example.com)"
 }
 
-variable "vnet_id" {
+variable "vpc_id" {
   type        = string
   description = "The ID of the VPC/VNet for private DNS zone association"
 }
