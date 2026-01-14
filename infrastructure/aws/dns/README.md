@@ -39,7 +39,7 @@ module "route53" {
 |------|-------------|------|---------|:--------:|
 | <a name="input_domain_name"></a> [domain\_name](#input\_domain\_name) | The domain name to use for the DNS zone (e.g., example.com) | `string` | n/a | yes |
 | <a name="input_tags"></a> [tags](#input\_tags) | A mapping of tags to assign to the DNS zone | `map(string)` | `{}` | no |
-| <a name="input_vnet_id"></a> [vnet\_id](#input\_vnet\_id) | The ID of the VPC/VNet for private DNS zone association | `string` | n/a | yes |
+| <a name="input_vpc_id"></a> [vpc\_id](#input\_vpc\_id) | The ID of the VPC/VNet for private DNS zone association | `string` | n/a | yes |
 
 ## Outputs
 

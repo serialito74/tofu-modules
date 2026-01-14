@@ -47,7 +47,7 @@ module "dns" {
 | <a name="input_project_id"></a> [project\_id](#input\_project\_id) | The GCP project ID | `string` | n/a | yes |
 | <a name="input_tags"></a> [tags](#input\_tags) | A mapping of labels to assign to the DNS zone | `map(string)` | `{}` | no |
 | <a name="input_visibility"></a> [visibility](#input\_visibility) | Zone visibility: public or private | `string` | `"public"` | no |
-| <a name="input_vnet_ids"></a> [vnet\_ids](#input\_vnet\_ids) | VNet self-links for private DNS zone association | `list(string)` | `[]` | no |
+| <a name="input_vpc_ids"></a> [vpc\_ids](#input\_vpc\_ids) | Vpc self-links for private DNS zone association | `list(string)` | `[]` | no |
 
 ## Outputs
 

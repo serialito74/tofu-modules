@@ -71,7 +71,7 @@ module "vpc" {
 | <a name="input_secondary_ranges"></a> [secondary\_ranges](#input\_secondary\_ranges) | Secondary IP ranges for GKE pods and services | `map(list(object({ range_name = string, ip_cidr_range = string })))` | `{}` | no |
 | <a name="input_subnets_definition"></a> [subnets\_definition](#input\_subnets\_definition) | List of subnets to create within the virtual network | <pre>list(object({<br/>    name           = string<br/>    address_prefix = string<br/>    location       = string<br/>  }))</pre> | n/a | yes |
 | <a name="input_tags"></a> [tags](#input\_tags) | A mapping of labels to assign to the virtual network resources | `map(string)` | `{}` | no |
-| <a name="input_vnet_name"></a> [vnet\_name](#input\_vnet\_name) | The name of the virtual network | `string` | n/a | yes |
+| <a name="input_vpc_name"></a> [vpc\_name](#input\_vpc\_name) | The name of the virtual private network | `string` | n/a | yes |
 
 ## Outputs
 

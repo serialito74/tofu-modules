@@ -51,7 +51,7 @@ module "cloud_nat" {
 | <a name="input_project_id"></a> [project\_id](#input\_project\_id) | The GCP project ID | `string` | n/a | yes |
 | <a name="input_router_name"></a> [router\_name](#input\_router\_name) | The name of the Cloud Router | `string` | n/a | yes |
 | <a name="input_tags"></a> [tags](#input\_tags) | A mapping of labels to assign to the NAT resources | `map(string)` | `{}` | no |
-| <a name="input_vnet_id"></a> [vnet\_id](#input\_vnet\_id) | The self-link of the virtual network | `string` | n/a | yes |
+| <a name="input_vpc_id"></a> [vpc\_id](#input\_vpc\_id) | The self-link of the virtual network | `string` | n/a | yes |
 
 ## Outputs
 
