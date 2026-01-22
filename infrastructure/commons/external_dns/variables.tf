@@ -79,18 +79,20 @@ variable "location" {
   description = "The AWS region where the Route53 hosted zones are located (required when dns_provider is 'aws')"
   default     = null
 
+  validation {
+    condition     = var.dns_provider != "aws" || var.location != null
+    error_message = "location is required when dns_provider is 'aws'."
+  }
+}
+
 ###############################################################################
 # AWS CONFIGURATION
 ###############################################################################
 
 variable "aws_region" {
-  description = "The AWS region where the Route53 hosted zones are located"
   type        = string
+  description = "The AWS region where the Route53 hosted zones are located"
   default     = null
-  validation {
-    condition     = var.dns_provider != "aws" || var.location != null
-    error_message = "location is required when dns_provider is 'aws'."
-  }
 }
 
 variable "aws_iam_role_arn" {
@@ -105,27 +107,24 @@ variable "aws_iam_role_arn" {
 }
 
 variable "zone_id_filter" {
-  description = "The Route53 public or private hosted zone ID for ExternalDNS to manage (required when dns_provider_name is 'aws')"
   type        = string
-  description = "The Route53 public hosted zone ID for ExternalDNS to manage (required when dns_provider is 'aws')"
+  description = "The Route53 hosted zone ID for ExternalDNS to manage (required when dns_provider is 'aws')"
   default     = ""
 
   validation {
-    condition     = var.dns_provider_name != "aws" || var.zone_id_filter != ""
-    error_message = "zone_id_filter is required when dns_provider_name is 'aws'."
+    condition     = var.dns_provider != "aws" || var.zone_id_filter != ""
+    error_message = "zone_id_filter is required when dns_provider is 'aws'."
   }
 }
 
 variable "zone_type" {
-  description = "The Route53 hosted zone type for ExternalDNS to manage (public or private)"
   type        = string
-  description = "The Route53 private hosted zone ID for ExternalDNS to manage (required when dns_provider is 'aws')"
+  description = "The Route53 hosted zone type for ExternalDNS to manage (public or private)"
   default     = ""
 
   validation {
-    condition = (
-    var.dns_provider_name != "aws" || (var.zone_type != "" && contains(["public", "private"], lower(var.zone_type))))
-    error_message = "When dns_provider_name is 'aws', zone_type must be 'public' or 'private'."
+    condition     = var.dns_provider != "aws" || (var.zone_type != "" && contains(["public", "private"], lower(var.zone_type)))
+    error_message = "When dns_provider is 'aws', zone_type must be 'public' or 'private'."
   }
 }
 
@@ -134,35 +133,38 @@ variable "zone_type" {
 ###############################################################################
 
 variable "oci_compartment_ocid" {
-  description = "The OCI compartment OCID where the DNS zones are located (required when dns_provider_name is 'oci')"
   type        = string
+  description = "The OCI compartment OCID where the DNS zones are located (required when dns_provider is 'oci')"
   default     = null
+
   validation {
-    condition     = var.dns_provider_name != "oci" || var.oci_compartment_ocid != null
-    error_message = "oci_compartment_ocid is required when dns_provider_name is 'oci'."
+    condition     = var.dns_provider != "oci" || var.oci_compartment_ocid != null
+    error_message = "oci_compartment_ocid is required when dns_provider is 'oci'."
   }
 }
 
 variable "oci_region" {
-  description = "The OCI region for workload identity configuration (required when dns_provider_name is 'oci')"
   type        = string
+  description = "The OCI region for workload identity configuration (required when dns_provider is 'oci')"
   default     = null
+
   validation {
-    condition     = var.dns_provider_name != "oci" || var.oci_region != null
-    error_message = "oci_region is required when dns_provider_name is 'oci'."
+    condition     = var.dns_provider != "oci" || var.oci_region != null
+    error_message = "oci_region is required when dns_provider is 'oci'."
   }
 }
 
 variable "oci_service_account_name" {
-  description = "The Kubernetes service account name for OCI Workload Identity"
   type        = string
+  description = "The Kubernetes service account name for OCI Workload Identity"
   default     = "external-dns"
 }
 
 variable "oci_zone_scope" {
-  description = "The scope of the DNS zones in OCI (GLOBAL or PRIVATE)"
   type        = string
+  description = "The scope of the DNS zones in OCI (GLOBAL or PRIVATE)"
   default     = "GLOBAL"
+
   validation {
     condition     = contains(["GLOBAL", "PRIVATE"], var.oci_zone_scope)
     error_message = "oci_zone_scope must be either 'GLOBAL' or 'PRIVATE'."
@@ -170,13 +172,13 @@ variable "oci_zone_scope" {
 }
 
 variable "oci_zones_cache_duration" {
-  description = "The duration to cache OCI DNS zones (e.g., '30s', '1m'). Set to '0s' to disable caching."
   type        = string
+  description = "The duration to cache OCI DNS zones (e.g., '30s', '1m'). Set to '0s' to disable caching."
   default     = "30s"
 }
 
 ###############################################################################
-# DNS PROVIDER CONFIGURATION
+# CLOUDFLARE CONFIGURATION
 ###############################################################################
 
 variable "cloudflare_token" {
@@ -186,7 +188,7 @@ variable "cloudflare_token" {
   default     = null
 
   validation {
-    condition     = contains(["cloudflare", "aws", "oci"], var.dns_provider_name)
-    error_message = "dns_provider_name must be either 'cloudflare', 'aws', or 'oci'."
+    condition     = var.dns_provider != "cloudflare" || var.cloudflare_token != null
+    error_message = "cloudflare_token is required when dns_provider is 'cloudflare'."
   }
 }

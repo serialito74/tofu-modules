@@ -3,9 +3,8 @@
 ###############################################################################
 
 variable "cloud_provider" {
-  description = "The cloud provider to use: gcp, azure, aws, cloudflare, or oci"
   type        = string
-  description = "The cloud provider to use (gcp, azure, aws, or cloudflare)"
+  description = "The cloud provider to use (gcp, azure, aws, cloudflare, or oci)"
 
   validation {
     condition     = contains(["gcp", "azure", "cloudflare", "aws", "oci"], var.cloud_provider)
