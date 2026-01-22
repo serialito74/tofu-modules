@@ -5,7 +5,7 @@
 module "api_key" {
   source = "../api_key"
 
-  name = "SCOPE_DEFINITION_AGENT_ASSOCIATION"
+  name = "SCOPE-NOTIFICATION-CHANNEL-${upper(var.scope_specification_slug)}"
 
   grants = [
     {
@@ -24,8 +24,12 @@ module "api_key" {
       value = "IaC"
     },
     {
-      key   = "source"
-      value = "tofu-modules/nullplatform/scope_definition_agent_association"
+      key   = "level"
+      value = var.nrn
+    },
+    {
+      key   = "usedBy"
+      value = "${upper(var.scope_specification_slug)}"
     }
   ]
 }

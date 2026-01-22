@@ -27,7 +27,7 @@ variable "channel_type" {
 
 }
 
-variable "service_slug" {
+variable "service_specification_slug" {
   type        = string
   description = "The slug of the scope definition"
   default     = null
