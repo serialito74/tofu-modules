@@ -1,5 +1,54 @@
 # Changelog
 
+## [1.22.0](https://github.com/nullplatform/tofu-modules/compare/v1.21.4...v1.22.0) (2026-01-21)
+
+
+### Features
+
+* **oci:** add support for oci ([#146](https://github.com/nullplatform/tofu-modules/issues/146)) ([ffaa72d](https://github.com/nullplatform/tofu-modules/commit/ffaa72d6d529ef168a422b7a4242a80a56920104))
+
+## [1.21.4](https://github.com/nullplatform/tofu-modules/compare/v1.21.3...v1.21.4) (2026-01-21)
+
+
+### Bug Fixes
+
+* **chart-base:** add istio gateway security groups ([#143](https://github.com/nullplatform/tofu-modules/issues/143)) ([03fa7be](https://github.com/nullplatform/tofu-modules/commit/03fa7be2d3c9970b41935e683b5b58df71de27a1))
+
+## [1.21.3](https://github.com/nullplatform/tofu-modules/compare/v1.21.2...v1.21.3) (2026-01-20)
+
+
+### Bug Fixes
+
+* **external-dns:** add rbac  ([#141](https://github.com/nullplatform/tofu-modules/issues/141)) ([ea5c5bb](https://github.com/nullplatform/tofu-modules/commit/ea5c5bbedb559b5d797185186204353a6d65186a))
+
+## [1.21.2](https://github.com/nullplatform/tofu-modules/compare/v1.21.1...v1.21.2) (2026-01-19)
+
+
+### Bug Fixes
+
+* **base:** adding gateway name parameter ([#139](https://github.com/nullplatform/tofu-modules/issues/139)) ([a47a299](https://github.com/nullplatform/tofu-modules/commit/a47a299a890570a2960b90195247de9b45d0921a))
+
+## [1.21.1](https://github.com/nullplatform/tofu-modules/compare/v1.21.0...v1.21.1) (2026-01-19)
+
+
+### Bug Fixes
+
+* **eks:** disable node security group to avoid ALB controller conflict ([#137](https://github.com/nullplatform/tofu-modules/issues/137)) ([8cbe80b](https://github.com/nullplatform/tofu-modules/commit/8cbe80b63d8edf2763d8bb1ed88e3b9b1b64a111))
+
+## [1.21.0](https://github.com/nullplatform/tofu-modules/compare/v1.20.3...v1.21.0) (2026-01-15)
+
+
+### Features
+
+* **provider:** add support for azure devops ([#133](https://github.com/nullplatform/tofu-modules/issues/133)) ([e0125d9](https://github.com/nullplatform/tofu-modules/commit/e0125d921a288f866623661caf30d95be592e77d))
+
+## [1.20.3](https://github.com/nullplatform/tofu-modules/compare/v1.20.2...v1.20.3) (2026-01-13)
+
+
+### Bug Fixes
+
+* **release:** fix commit message ([#131](https://github.com/nullplatform/tofu-modules/issues/131)) ([eb4e239](https://github.com/nullplatform/tofu-modules/commit/eb4e2395ce90ae9b2c08425ae99888c4b04cb02f))
+
 ## [1.20.2](https://github.com/nullplatform/tofu-modules/compare/v1.20.1...v1.20.2) (2026-01-12)
 
 

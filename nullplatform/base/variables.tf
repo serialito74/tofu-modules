@@ -1,7 +1,7 @@
 variable "nullplatform_base_helm_version" {
   description = "Helm chart version for the nullplatform base."
   type        = string
-  default     = "2.29.2"
+  default     = "2.30.1"
 }
 
 variable "namespace" {
@@ -308,6 +308,81 @@ variable "gateway_api_crds_install" {
   description = "Install Gateway API CRDs."
   default     = false
 }
+
+
+variable "gateway_public_aws_name" {
+  type        = string
+  description = "Name of public gateway in AWS."
+  default     = "k8s-nullplatform-internet-facing"
+}
+
+variable "gateway_internal_aws_name" {
+  type        = string
+  description = "Name of private gateway in AWS."
+  default     = "k8s-nullplatform-internal"
+}
+
+############################################
+# Gateway Security Configuration
+############################################
+
+variable "cluster_name" {
+  type        = string
+  description = "The cluster name (EKS, AKS, or GKE), used for naming security resources."
+  default     = ""
+}
+
+variable "network_cidr" {
+  type        = string
+  description = "Override: The network CIDR block for restricting health check access. If empty, derived automatically from cluster's VPC/VNet/Subnet."
+  default     = ""
+}
+
+variable "gateway_security_enabled" {
+  type        = bool
+  description = "Enable creation of security resources (Security Groups for AWS, NSGs for Azure, Firewall Rules for GCP) to restrict health check port access."
+  default     = false
+}
+
+# AWS-specific variables
+variable "vpc_id" {
+  type        = string
+  description = "(AWS/EKS only) Override: The VPC ID. If empty, derived automatically from cluster name."
+  default     = ""
+}
+
+# Azure-specific variables
+variable "resource_group_name" {
+  type        = string
+  description = "(Azure/AKS only) The resource group name for NSG resources."
+  default     = ""
+}
+
+variable "azure_location" {
+  type        = string
+  description = "(Azure/AKS only) Override: The Azure region. If empty, derived automatically from cluster."
+  default     = ""
+}
+
+# GCP-specific variables
+variable "gcp_project_id" {
+  type        = string
+  description = "(GCP/GKE only) The GCP project ID."
+  default     = ""
+}
+
+variable "gcp_network_name" {
+  type        = string
+  description = "(GCP/GKE only) The VPC network name for firewall rules. If empty, derived from cluster."
+  default     = ""
+}
+
+variable "gcp_region" {
+  type        = string
+  description = "(GCP/GKE only) The GCP region where the GKE cluster is located."
+  default     = ""
+}
+
 
 ############################################
 # Image Pull Secrets

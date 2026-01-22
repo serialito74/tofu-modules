@@ -82,8 +82,9 @@ variable "access_entries" {
 # OPTIONAL VARIABLES - TAGS AND METADATA
 ###############################################################################
 
-variable "tags" {
-  type        = map(string)
-  description = "A mapping of tags to assign to the EKS cluster and related resources"
-  default     = {}
+
+variable "attach_cluster_primary_security_group" {
+  description = "Attach cluster primary security group to node groups"
+  type        = bool
+  default     = true
 }

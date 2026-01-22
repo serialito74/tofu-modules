@@ -1,11 +1,12 @@
 module "eks" {
   source  = "terraform-aws-modules/eks/aws"
-  version = ">= 21.15, < 22.0"
+  version = ">= 21.14, < 22.0"
 
   name               = var.cluster_name
   kubernetes_version = var.kubernetes_version
 
   create_cloudwatch_log_group = false
+  create_node_security_group  = false
 
   addons = {
     coredns = {}
@@ -30,18 +31,6 @@ module "eks" {
   subnet_ids               = var.vpc_subnet_ids
   control_plane_subnet_ids = var.vpc_subnet_ids
 
-  # Reglas adicionales para webhooks (Istio, cert-manager, etc.)
-  node_security_group_additional_rules = {
-    ingress_allow_access_from_control_plane_to_webhooks = {
-      description                   = "Allow access from control plane to admission webhooks"
-      protocol                      = "tcp"
-      from_port                     = 15017
-      to_port                       = 15017
-      type                          = "ingress"
-      source_cluster_security_group = true
-    }
-  }
-
   # EKS Managed Node Group(s)
   eks_managed_node_groups = var.auto_mode_enabled ? {} : {
     nullplatform = {
@@ -49,9 +38,10 @@ module "eks" {
       ami_type       = var.ami_type
       instance_types = [var.instance_types]
 
-      min_size     = 2
-      max_size     = 10
-      desired_size = 2
+      min_size                              = 2
+      max_size                              = 10
+      desired_size                          = 2
+      attach_cluster_primary_security_group = var.attach_cluster_primary_security_group
     }
   }
   # ==========================================

@@ -95,6 +95,12 @@ variable "tags" {
   default     = {}
 }
 
+variable "environment" {
+  type        = string
+  description = "The environment name used for tagging and naming purposes"
+  default     = "nullplatform"
+}
+
 ###############################################################################
 # OPTIONAL VARIABLES - ACR INTEGRATION
 ###############################################################################
