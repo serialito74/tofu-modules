@@ -12,7 +12,7 @@ variable "repository_service_spec" {
 variable "repository_service_spec_branch" {
   description = "branch reference of service spec"
   type        = string
-  default     = "main"
+  default     = "beta"
 
 }
 
@@ -27,7 +27,7 @@ variable "repository_scope_template" {
 variable "repository_scope_template_branch" {
   description = "branch reference of scope template"
   type        = string
-  default     = "main"
+  default     = "beta"
 
 }
 
@@ -41,7 +41,7 @@ variable "repository_action_templates" {
 variable "repository_action_templates_branch" {
   description = "branch reference of action template"
   type        = string
-  default     = "main"
+  default     = "beta"
 
 }
 

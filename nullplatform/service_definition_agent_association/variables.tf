@@ -69,6 +69,29 @@ variable "service_specification_id" {
   type        = string
   description = "The ID of the service definition associated with the agent"
   default     = null
+}
 
+variable "repo_path" {
+  description = "Local filesystem path where the service repository will be cloned"
+  type        = string
+  default     = "/root/.np/nullplatform/services"
+}
+
+variable "enabled_override" {
+  description = "Enable custom overrides for service configurations via command line"
+  type        = bool
+  default     = false
+}
+
+variable "override_repo_path" {
+  description = "Local filesystem path where the override repository will be cloned"
+  type        = string
+  default     = null
+}
+
+variable "overrides_service_path" {
+  description = "Local filesystem path to the directory containing override configurations"
+  type        = string
+  default     = null
 }
 
