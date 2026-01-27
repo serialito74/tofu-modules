@@ -1,10 +1,9 @@
-
 resource "helm_release" "istio_base" {
   name       = "istio-base"
   repository = var.repository
   chart      = "base"
   namespace  = var.namespace
-  version    = var.istio_base_version
+  version    = var.chart_version
 
   create_namespace  = true
   disable_webhooks  = false
@@ -20,7 +19,6 @@ resource "helm_release" "istio_base" {
   reuse_values      = false
   dependency_update = true
   max_history       = 10
-
 }
 
 resource "helm_release" "istiod" {
@@ -29,7 +27,7 @@ resource "helm_release" "istiod" {
   repository = var.repository
   chart      = "istiod"
   namespace  = var.namespace
-  version    = var.istiod_version
+  version    = var.chart_version
 
   create_namespace  = true
   disable_webhooks  = false
@@ -47,14 +45,13 @@ resource "helm_release" "istiod" {
   max_history       = 10
 }
 
-# Setup Istio Gateway using Helm
 resource "helm_release" "istio_ingressgateway" {
   name       = "istio-ingressgateway"
   depends_on = [helm_release.istiod]
   repository = var.repository
   chart      = "gateway"
   namespace  = var.namespace
-  version    = var.istio_ingressgateway_version
+  version    = var.chart_version
 
   create_namespace  = true
   disable_webhooks  = false
@@ -72,6 +69,4 @@ resource "helm_release" "istio_ingressgateway" {
   max_history       = 10
 
   values = [local.helm_values]
-
-
 }

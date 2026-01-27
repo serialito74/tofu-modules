@@ -25,12 +25,12 @@ locals {
     provider = { name = "aws" }
     env = [{
       name  = "AWS_DEFAULT_REGION"
-      value = var.aws_region
+      value = var.location != null ? var.location : ""
     }]
     serviceAccount = {
       create = true
       annotations = {
-        "eks.amazonaws.com/role-arn" = var.aws_iam_role_arn
+        "eks.amazonaws.com/role-arn" = var.aws_iam_role_arn != null ? var.aws_iam_role_arn : ""
       }
     }
     rbac = {
@@ -44,8 +44,8 @@ locals {
       ]
     }
     extraArgs = compact([
-      "--aws-zone-type=${var.zone_type}",
-      "--zone-id-filter=${var.zone_id_filter}"
+      var.zone_type != "" ? "--aws-zone-type=${var.zone_type}" : "",
+      var.zone_id_filter != "" ? "--zone-id-filter=${var.zone_id_filter}" : ""
     ])
   }
 
@@ -62,9 +62,9 @@ locals {
       }
     ]
     extraArgs = [
-      "--oci-compartment-ocid=${var.oci_compartment_ocid}",
-      "--oci-zone-scope=${var.oci_zone_scope}",
-      "--oci-zones-cache-duration=${var.oci_zones_cache_duration}"
+      var.oci_compartment_ocid != null ? "--oci-compartment-ocid=${var.oci_compartment_ocid}" : "",
+      var.oci_zone_scope != null ? "--oci-zone-scope=${var.oci_zone_scope}" : "",
+      var.oci_zones_cache_duration != null ? "--oci-zones-cache-duration=${var.oci_zones_cache_duration}" : ""
     ]
     extraVolumes = [
       {
@@ -89,5 +89,5 @@ locals {
     oci        = local.oci_config
   }
 
-  external_dns_values = merge(local.base_config, local.provider_configs[var.dns_provider_name])
+  external_dns_values = merge(local.base_config, local.provider_configs[var.dns_provider])
 }

@@ -1,11 +1,12 @@
 locals {
   common_context = {
-    hosted_zone_name    = var.hosted_zone_name
+    hosted_zone_name    = var.domain_name
     account_slug        = var.account_slug
-    namespace           = var.cert_manager_namespace
+    namespace           = var.namespace
     cloud_provider      = var.cloud_provider
     private_domain_name = var.private_domain_name
   }
+
   provider_context = merge(
     var.cloud_provider == "gcp" ? {
       enabled    = true
@@ -20,11 +21,11 @@ locals {
 
     var.cloud_provider == "azure" ? {
       enabled             = true
-      subscription_id     = var.azure_subscription_id
-      resource_group_name = var.azure_resource_group_name
+      subscription_id     = var.subscription_id
+      resource_group_name = var.resource_group_name
       client_id           = var.azure_client_id
       tenant_id           = var.azure_tenant_id
-      hosted_zone_name    = var.azure_hosted_zone_name
+      hosted_zone_name    = var.azure_dns_zone_name
     } : {},
 
     var.cloud_provider == "aws" ? {
@@ -38,11 +39,11 @@ locals {
     } : {}
   )
 
-
   cert_manager_default_values = templatefile(
     "${path.module}/templates/cert_manager_default_values.tmpl.yaml",
     local.common_context
   )
+
   cert_manager_provider_values = templatefile(
     "${path.module}/templates/cert_manager_${var.cloud_provider}_values.tmpl.yaml",
     local.provider_context
@@ -50,8 +51,9 @@ locals {
 }
 
 ###############################################################################
-# CERT-MANAGER
+# CERT-MANAGER SERVICE ACCOUNT ANNOTATIONS
 ###############################################################################
+
 locals {
   base_annotations = {
     "{{ .Chart.Name }}-helm-chart/version" = "{{ .Chart.Version }}"
@@ -59,11 +61,11 @@ locals {
 
   annotations_by_provider = {
     gcp = {
-      "iam.gke.io/gcp-service-account" = var.gcp_sa_email
+      "iam.gke.io/gcp-service-account" = var.gcp_service_account_email
     }
 
     aws = {
-      "eks.amazonaws.com/role-arn" = var.aws_sa_arn
+      "eks.amazonaws.com/role-arn" = var.aws_iam_role_arn
     }
 
     azure = {
@@ -90,5 +92,3 @@ locals {
     dns01RecursiveNameserversOnly = true
   }
 }
-
-
