@@ -5,7 +5,7 @@
 module "api_key" {
   source = "git::https://github.com/nullplatform/tofu-modules.git//nullplatform/api_key?ref=v1.24.0"
 
-  name = "NULLPLATFORM-AGENT-${var.cluster_name}-API-KEY"
+  name = "AGENT"
 
   grants = [
     {
@@ -30,18 +30,13 @@ module "api_key" {
     }
   ]
 
-  tags = [
-    {
-      key   = "managed-by"
-      value = "IaC"
-    },
-    {
-      key   = "owner"
-      value = var.nrn
-    },
-    {
-      key   = "source"
-      value = "tofu-modules/nullplatform/agent"
-    }
-  ]
+  tags = concat(
+    [
+      {
+        key   = "managedBy"
+        value = "IaC"
+      }
+    ],
+    local.nrn_tags
+  )
 }
