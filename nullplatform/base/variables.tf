@@ -352,6 +352,58 @@ variable "image_pull_secrets_password" {
 }
 
 ############################################
+# Security Modules
+############################################
+
+variable "cluster_name" {
+  type        = string
+  description = "The Kubernetes cluster name (used by security modules to derive network info)."
+  default     = ""
+}
+
+variable "vpc_id" {
+  type        = string
+  description = "Override: AWS VPC ID. If empty, derived automatically from cluster name."
+  default     = ""
+}
+
+variable "network_cidr" {
+  type        = string
+  description = "Override: Network CIDR block for restricting health check access. If empty, derived automatically."
+  default     = ""
+}
+
+variable "resource_group_name" {
+  type        = string
+  description = "Azure resource group name for NSG resources."
+  default     = ""
+}
+
+variable "azure_location" {
+  type        = string
+  description = "Override: Azure region. If empty, derived automatically from cluster."
+  default     = ""
+}
+
+variable "gcp_project_id" {
+  type        = string
+  description = "GCP project ID."
+  default     = ""
+}
+
+variable "gcp_region" {
+  type        = string
+  description = "GCP region where the GKE cluster is located."
+  default     = ""
+}
+
+variable "gcp_network_name" {
+  type        = string
+  description = "Override: GCP VPC network name for firewall rules. If empty, derived from cluster."
+  default     = ""
+}
+
+############################################
 # Ingress Controller
 ############################################
 # ============================================================
