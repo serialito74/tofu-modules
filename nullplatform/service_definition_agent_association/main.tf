@@ -3,8 +3,8 @@
 ################################################################################
 resource "nullplatform_notification_channel" "channel" {
   nrn    = var.nrn
-  type   = local.notification_channel_def.type
-  source = local.notification_channel_def.source
+  type   = var.channel_type
+  source = var.channel_sources
 
   configuration {
     dynamic "agent" {
