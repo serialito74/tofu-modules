@@ -10,10 +10,10 @@ Usage:
 
 ```hcl
 module "authorization" {
-  source       = "git::https://github.com/nullplatform/tofu-modules.git///nullplatform/authorization?ref=v1.0.0"
-  nrn          = var.nrn
-  destination  = var.destination
-  np_api_key   = var.np_api_key
+  source      = "git::https://github.com/nullplatform/tofu-modules.git//nullplatform/authorization?ref=v1.24.0"
+  nrn         = var.nrn
+  destination = var.destination
+  np_api_key  = var.np_api_key
 }
 ```
 
@@ -24,13 +24,13 @@ module "authorization" {
 |------|---------|
 | <a name="requirement_aws"></a> [aws](#requirement\_aws) | ~> 6.0 |
 | <a name="requirement_helm"></a> [helm](#requirement\_helm) | ~> 3.0 |
-| <a name="requirement_nullplatform"></a> [nullplatform](#requirement\_nullplatform) | ~> 0.0.76 |
+| <a name="requirement_nullplatform"></a> [nullplatform](#requirement\_nullplatform) | ~> 0.0.63 |
 
 ## Modules
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_api_key"></a> [api\_key](#module\_api\_key) | ../api_key | n/a |
+| <a name="module_api_key"></a> [api\_key](#module\_api\_key) | git::https://github.com/nullplatform/tofu-modules.git//nullplatform/api_key | v1.24.0 |
 
 ## Inputs
 

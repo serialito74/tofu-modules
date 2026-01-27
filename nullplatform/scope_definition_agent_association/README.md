@@ -7,12 +7,12 @@ It injects the agent’s API key, command configuration, and optional overrides,
 
 ```hcl
 module "scope_definition_agent_association" {
-  source                     = "git::https://github.com/nullplatform/tofu-modules.git//nullplatform/scope_definition_agent_association?ref=v1.0.0"
-  nrn                        = var.nrn
-  np_api_key                 = var.np_api_key
-  service_specification_id   = module.scope_definition.service_specification_id
-  service_specification_slug = module.scope_definition.service_slug
-  tags_selectors             = var.tags_selectors
+  source                   = "git::https://github.com/nullplatform/tofu-modules.git//nullplatform/scope_definition_agent_association?ref=v1.24.0"
+  nrn                      = var.nrn
+  np_api_key               = var.np_api_key
+  scope_specification_id   = module.scope_definition.scope_specification_id
+  scope_specification_slug = module.scope_definition.scope_slug
+  tags_selectors           = var.tags_selectors
 }
 ```
 
@@ -35,7 +35,7 @@ module "scope_definition_agent_association" {
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_api_key"></a> [api\_key](#module\_api\_key) | ../api_key | n/a |
+| <a name="module_api_key"></a> [api\_key](#module\_api\_key) | git::https://github.com/nullplatform/tofu-modules.git//nullplatform/api_key | v1.24.0 |
 
 ## Resources
 

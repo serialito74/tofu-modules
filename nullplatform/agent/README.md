@@ -7,13 +7,13 @@ This code installs and manages the nullplatform agent in a Kubernetes cluster us
 ### Basic example
 
 ```hcl
-module "cloud_aws_agent" {
-  source                              = "git::https://github.com/nullplatform/tofu-modules.git//nullplatform/agent?ref=v1.0.0"
-  cluster_name                        = var.cluster_name
-  nrn                                 = var.nrn
-  np_api_key                          = var.np_api_key
-  tags_selectors                      = var.tags_selectors
-  namespace                           = var.namespace
+module "agent" {
+  source         = "git::https://github.com/nullplatform/tofu-modules.git//nullplatform/agent?ref=v1.24.0"
+  cluster_name   = var.cluster_name
+  nrn            = var.nrn
+  tags_selectors = var.tags_selectors
+  image_tag      = var.image_tag
+  cloud_provider = var.cloud_provider
 }
 ```
 
@@ -23,7 +23,7 @@ module "cloud_aws_agent" {
 | Name | Version |
 |------|---------|
 | <a name="requirement_helm"></a> [helm](#requirement\_helm) | ~> 3.0 |
-| <a name="requirement_nullplatform"></a> [nullplatform](#requirement\_nullplatform) | ~> 0.0.76 |
+| <a name="requirement_nullplatform"></a> [nullplatform](#requirement\_nullplatform) | ~> 0.0.63 |
 
 ## Providers
 
@@ -35,7 +35,7 @@ module "cloud_aws_agent" {
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_api_key"></a> [api\_key](#module\_api\_key) | ../api_key | n/a |
+| <a name="module_api_key"></a> [api\_key](#module\_api\_key) | git::https://github.com/nullplatform/tofu-modules.git//nullplatform/api_key | v1.24.0 |
 
 ## Resources
 

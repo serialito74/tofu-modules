@@ -7,28 +7,30 @@ resource "nullplatform_notification_channel" "channel" {
   source = local.notification_channel_def.source
 
   configuration {
-    agent {
-      api_key = local.notification_channel_def.configuration.api_key
-      command {
-        type = local.notification_channel_def.configuration.command.type
-        data = {
-          cmdline = var.enabled_override ? "${local.notification_channel_def.configuration.command.data.cmdline} ${local.overrides_flag}" : local.notification_channel_def.configuration.command.data.cmdline
-          environment = jsonencode({
-            NP_ACTION_CONTEXT = "'$${NOTIFICATION_CONTEXT}'"
-          })
+    dynamic "agent" {
+      for_each = var.agent_command != null ? [1] : []
+      content {
+        api_key = module.api_key.api_key
+        command {
+          type = var.agent_command.type
+          data = {
+            cmdline = join(" ", compact([
+              var.agent_command.data.cmdline,
+              var.workflow_override_path != null ? "--overrides-path=${var.workflow_override_path}" : "",
+              var.service_path != null ? "--service-path=${var.service_path}" : "",
+            ]))
+            arguments   = jsonencode(try(var.agent_command.data.arguments, []))
+            environment = jsonencode(try(var.agent_command.data.environment, {}))
+          }
         }
+        selector = var.tags_selectors
       }
-      selector = var.tags_selectors
     }
   }
 
-  filters = jsonencode(local.notification_channel_def.filters)
-
-  lifecycle {
-    ignore_changes = [
-      filters,
-      source,
-      type,
+  filters = jsonencode({
+    "$or" = [
+      { "service.specification.slug" = { "$eq" : var.service_specification_slug } }
     ]
-  }
+  })
 }
