@@ -1,10 +1,13 @@
-################################################################################
-# Notification Channel Resource
-################################################################################
-resource "nullplatform_notification_channel" "channel" {
+
+resource "terraform_data" "api_key_trigger" {
+  input = module.api_key.api_key
+}
+
+resource "nullplatform_notification_channel" "channel_from_template" {
   nrn    = var.nrn
   type   = var.channel_type
   source = var.channel_sources
+
 
   configuration {
     dynamic "agent" {
@@ -23,6 +26,7 @@ resource "nullplatform_notification_channel" "channel" {
             environment = jsonencode(try(var.agent_command.data.environment, {}))
           }
         }
+
         selector = var.tags_selectors
       }
     }
@@ -33,4 +37,8 @@ resource "nullplatform_notification_channel" "channel" {
       { "service.specification.slug" = { "$eq" : var.service_specification_slug } }
     ]
   })
+
+  lifecycle {
+    replace_triggered_by = [terraform_data.api_key_trigger]
+  }
 }
