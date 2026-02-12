@@ -91,3 +91,15 @@ variable "http2_target_port" {
   description = "The container target port for HTTP2 when enabled"
   default     = 80
 }
+
+###############################################################################
+# SERVICE ANNOTATIONS
+###############################################################################
+
+variable "service_annotations" {
+  type        = map(string)
+  description = "Annotations to apply to the Istio ingress gateway service"
+  default = {
+    "service.beta.kubernetes.io/aws-load-balancer-name" = "k8s-nullplatform-internet-facing"
+  }
+}

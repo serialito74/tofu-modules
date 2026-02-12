@@ -1,4 +1,10 @@
 service:
+%{ if length(service_annotations) > 0 }
+  annotations:
+%{ for key, value in service_annotations ~}
+    ${key}: "${value}"
+%{ endfor ~}
+%{ endif }
   type: ${service_type}
   ports:
     - name: status-port

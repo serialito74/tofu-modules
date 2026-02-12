@@ -4,10 +4,10 @@ locals {
     status_port       = var.status_port
     https_port        = var.https_port
     https_target_port = var.https_target_port
-    enable_http2      = var.enable_http2
-    http2_port        = var.http2_port
-    http2_target_port = var.http2_target_port
-
+    enable_http2        = var.enable_http2
+    http2_port          = var.http2_port
+    http2_target_port   = var.http2_target_port
+    service_annotations = var.service_annotations
   })
 
 }
