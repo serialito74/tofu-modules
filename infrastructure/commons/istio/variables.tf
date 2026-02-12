@@ -100,9 +100,8 @@ variable "service_annotations" {
   type        = map(string)
   description = "Annotations to apply to the Istio ingress gateway service"
   default = {
-    "service.beta.kubernetes.io/aws-load-balancer-name"               = "k8s-nullplatform-internet-facing"
+    "service.beta.kubernetes.io/aws-load-balancer-name"                = "k8s-nullplatform-internet-facing"
     "service.beta.kubernetes.io/aws-load-balancer-scheme"              = "internet-facing"
-    "service.beta.kubernetes.io/aws-load-balancer-type"                = "nlb"
     "service.beta.kubernetes.io/aws-load-balancer-nlb-target-type"     = "ip"
     "service.beta.kubernetes.io/aws-load-balancer-backend-protocol"    = "tcp"
     "service.beta.kubernetes.io/aws-load-balancer-healthcheck-path"    = "/healthz/ready"
