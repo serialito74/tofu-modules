@@ -32,16 +32,6 @@ variable "aws_region" {
 }
 
 ############################################
-# TLS
-############################################
-
-variable "tls_required" {
-  type        = bool
-  description = "Whether TLS is required."
-  default     = true
-}
-
-############################################
 # Control Plane
 ############################################
 
