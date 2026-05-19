@@ -41,10 +41,12 @@ resource "helm_release" "base" {
   reset_values      = true
   dependency_update = true
   max_history       = 10
+  cleanup_on_fail   = true
+  atomic            = true
   values            = [local.nullplatform_base_values]
 
   depends_on = [
     kubernetes_namespace_v1.nullplatform_tools,
-    kubernetes_namespace_v1.nullplatform_applications
+    kubernetes_namespace_v1.nullplatform_applications,
   ]
 }
