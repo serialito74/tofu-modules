@@ -4,6 +4,12 @@ variable "nullplatform_base_helm_version" {
   default     = "2.40.0"
 }
 
+variable "nullplatform_base_chart_path" {
+  description = "Local path or OCI URL to the nullplatform-base chart. When set, overrides the public registry (useful for testing unreleased chart versions)."
+  type        = string
+  default     = ""
+}
+
 variable "namespace" {
   description = "Kubernetes namespace where the agent runs."
   type        = string

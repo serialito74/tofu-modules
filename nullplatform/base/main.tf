@@ -31,10 +31,10 @@ resource "kubernetes_namespace_v1" "nullplatform_applications" {
 
 resource "helm_release" "base" {
   name       = "nullplatform-base"
-  chart      = "nullplatform-base"
-  repository = "https://nullplatform.github.io/helm-charts"
+  chart      = var.nullplatform_base_chart_path != "" ? var.nullplatform_base_chart_path : "nullplatform-base"
+  repository = var.nullplatform_base_chart_path != "" ? null : "https://nullplatform.github.io/helm-charts"
   namespace  = var.namespace
-  version    = var.nullplatform_base_helm_version
+  version    = var.nullplatform_base_chart_path != "" && !startswith(var.nullplatform_base_chart_path, "oci://") ? null : var.nullplatform_base_helm_version
 
   wait_for_jobs     = true
   timeout           = 600
