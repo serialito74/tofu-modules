@@ -16,7 +16,4 @@ resource "nullplatform_provider_config" "ecr" {
       local.setup_policy
     )
   })
-  lifecycle {
-    ignore_changes = [attributes]
-  }
 }
