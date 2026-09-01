@@ -91,6 +91,16 @@ variable "gateway_public_load_balancer_type" {
   }
 }
 
+variable "gateway_public_extra_listeners" {
+  type = list(object({
+    name       = string
+    hostname   = string
+    secretName = string
+  }))
+  description = "Additional HTTPS listeners (port 443, SNI-selected) on the public Gateway, each with its own hostname and TLS secret. Requires the vendored chart fork (see helm_release.base's chart source) — not yet in the upstream nullplatform-base chart."
+  default     = []
+}
+
 variable "gateway_public_azure_load_balancer_subnet" {
   type        = string
   description = "Name of the subnet for the public gateway's internal Azure load balancer. Only applied when gateway_public_load_balancer_type is 'internal'; empty by default, in which case Azure picks the subnet automatically."

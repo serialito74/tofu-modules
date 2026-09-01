@@ -74,6 +74,16 @@ gateway:
       minReplicas: 2
       maxReplicas: 10
     loadBalancerType: "${gateway_public_load_balancer_type}"
+    %{ if length(gateway_public_extra_listeners) > 0 }
+    extraListeners:
+    %{ for l in gateway_public_extra_listeners }
+      - name: ${l.name}
+        hostname: "${l.hostname}"
+        secretName: ${l.secretName}
+    %{ endfor }
+    %{ else }
+    extraListeners: []
+    %{ endif }
 # Nullplatform configurations
 nullplatform:
   apiKey: "${np_api_key}"

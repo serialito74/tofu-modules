@@ -33,11 +33,13 @@ resource "kubernetes_namespace_v1" "nullplatform_applications" {
 ############################################
 
 resource "helm_release" "base" {
-  name       = "nullplatform-base"
-  chart      = "nullplatform-base"
-  repository = "https://nullplatform.github.io/helm-charts"
+  name = "nullplatform-base"
+  # Vendored fork with gateway.public/internal.extraListeners support (SNI
+  # multi-cert listeners), not yet merged upstream — see
+  # nullplatform/helm-charts PR from GaliciaSeguros. Swap chart/repository
+  # back to the official values once that lands.
+  chart      = "${path.module}/vendor/nullplatform-base-2.44.1.tgz"
   namespace  = var.namespace
-  version    = var.nullplatform_base_helm_version
 
   wait_for_jobs     = true
   timeout           = 600
